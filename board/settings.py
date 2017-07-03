@@ -26,7 +26,7 @@ SECRET_KEY = '37e(e$6g538)dmb@w@&g*lc7gsv^80^o8p32*fginzj6(5!a_#'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+#for git
 
 # Application definition
 
