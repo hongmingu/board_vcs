@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+</head>
+<body>
+    {% if do.count > 0%}
+        <p>Is it</p>
+    {% endif %}
+    <div id="contentDisplay">
+
+    </div>
+
+<form id="textForm">
+    <input type="text" id="textInput" value="value"><input type="button" value="post">
+</form>
+</body>
+<script>
+    $(document).ready(function () {
+{#        To send with Enter Keypress#}
+        var lastId;
+
+        $("#textInput").on('keypress', function (e) {
+            var code = e.keyCode || e.which;
+            if (code==13){
+                var valueOfTextInput = $("#textInput").val();
+                $.ajax({
+                    url:"/post/",
+                    type:"get",
+                    data:{
+                        q : valueOfTextInput,
+                        last : lastId,
+                    },
+                    dataType : "json",
+                    cache : false,
+                    success : function (data) {
+                        console.log(data);
+                        $.each(data, function (index, value) {
+                            $("#contentDisplay").prepend("<div id='myid'>"+value.text+"</div>");
+                            lastId = value.id;
+                            console.log(moment.utc(value.createdAt).fromNow());
+                        });
+                        console.log()
+                    }
+                });
+                e.preventDefault();
+            }
+        })
+    });
+</script>
+</html>
