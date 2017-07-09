@@ -5,28 +5,288 @@
     <title>Title</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        #box{border:4px dotted green; border-bottom:5px solid blue }
+        .navbar .navbar-nav{
+            text-align: center;
+        }
+        .navbar .navbar-collapse {
+            text-align: center;
+        }
+        .navbar .navbar-nav {
+            display: inline-block;
+            float: none;
+        }
+        .navbar-nav>li, .navbar-nav {
+          float: left !important;
+        }
+        .navbar-nav .navbar-right:last-child {
+          margin-right: -15px !important;
+        }
+        .anima {
+        width: auto;
+        height: auto;
+        background-color: transparent;
+        -webkit-animation-name: example; /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 3s; /* Safari 4.0 - 8.0 */
+        animation-name: example;
+        animation-duration: 3s;
+        }
+        .removedSoon{
+            background-color: indianred;
+        }
+
+        /* Safari 4.0 - 8.0 */
+        @-webkit-keyframes example {
+        from {background-color: cornflowerblue;}
+        to {background-color: transparent;}
+        }
+
+        /* Standard syntax */
+        @keyframes example {
+        from {background-color: cornflowerblue;}
+        to {background-color: transparent;}
+        }
+    </style>
+
 </head>
 <body>
-    {% if do.count > 0%}
-        <p>Is it</p>
-    {% endif %}
-    <div id="contentDisplay">
+<button id="dodo">hello</button>
+<button id="timecheck">timehello</button>
+  <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
+      <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li><a href="#">For1m</a></li>
+                <li><button class="btn navbar-btn" data-toggle="modal" data-target="#writeModal">Write</button></li>
+                <li><a href="#" id="refreshBtn"><span class="glyphicon glyphicon-repeat"></span></a></li>
+                <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Lang<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                    <li><a href="#">All</a></li>
+                    <li><a href="#">For 1 Month</a></li>
+                    <li><a href="#">Arabic</a></li>
+                    <li><a href="#">Bengali</a></li>
+                    <li><a href="#">Chinese</a></li>
+                    <li><a href="#">English</a></li>
+                    <li><a href="#">French</a></li>
+                    <li><a href="#">German</a></li>
+                    <li><a href="#">Hindi</a></li>
+                    <li><a href="#">Japanese</a></li>
+                    <li><a href="#">Javanese</a></li>
+                    <li><a href="#">Korean</a></li>
+                    <li><a href="#">Lahnda</a></li>
+                    <li><a href="#">Malay</a></li>
+                    <li><a href="#">Portuguese</a></li>
+                    <li><a href="#">Russian</a></li>
+                    <li><a href="#">Spanish</a></li>
+                    <li><a href="#">Tenlgu</a></li>
+                </ul>
+              </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+        </nav>
 
+    <div class="container">
+        <div class="row" id="contentsbox">
+            <div class="panel panel-primary">
+                <!--.panel-heading-->
+                <div class="panel-body">Panel Bodydddddddddddddddddddd</div>
+                <!--.panel-body-->
+                <div class="panel-footer panel-custom">Panel Footer</div>
+                <!--.panel-footer-->
+            </div>
+
+        </div>
+
+<div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                       <span aria-hidden="true">&times;</span>
+                       <span class="sr-only">Close</span>
+                </button>
+                <h3 class="modal-title" id="myModalLabel">Write_Limited For 100 characters</h3>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <form role="form" id="modalform">
+                    <div class="form-group">
+                        <textarea class="form-control" id="submitTextarea" form="modalform" cols="34" rows="5" maxlength="100"></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+
+                <button type="submit" class="btn btn-default" id="submitBtn">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+            </div>
+        </div>
     </div>
-
-<form id="textForm">
-    <input type="text" id="textInput" value="value"><input type="button" value="post">
-</form>
+</div>
+    </div>
 </body>
 <script>
     $(document).ready(function () {
-{#        To send with Enter Keypress#}
         var lastId;
+        var valueOfTextInput;
+        var trimedWord;
+        var doingman = 0;
+        var start = new Date;
+        var timeman;
+        getelaspedTime = function (time) {
+            var now = new Date;
+            var date = new Date(time);
+            var unit = 1000*60*60*24;
+            timestamp = Math.floor((now -Date(time)) /1000) + "Days";
+
+            return timestamp;
+        };
+
+        var now = new Date;
+        var title = $(".timePTag").attr("title");
+        var date = new Date(title);
+        var timestamp = Math.floor((now -date) /1000) + "Days";
+        console.log(timestamp);
+        $(".timePTag").text(timestamp);
+
+        setInterval(function() {
+            if ($(".timePTag").length) {
+                $(".timePTag").each(function() {
+                    var now = new Date;
+                    var id = $(this).attr("id");
+                    var sourcedate = new Date(id);
+                    var timestamp = Math.floor((now - sourcedate) /1000);
+                    console.log(typeof(timestamp));
+                    $(this).text(timestamp);
+                    if (timestamp<=60){
+                        var searchid = id;
+                        $(this).text("it EEEexpired");
+                        $(this).parent().parent().addClass("removedSoon");
+                        console.log(searchid);
+                    }
+                    else if(timestamp<=900){
+                        $(this).text("It will be removed soon")
+                        $(this).parent().parent().addClass("removedSoon")
+                    }
+                    console.log(timestamp)
+                 });
+            }
+            else {
+                console.log('noclass')
+            }
+        }, 1000);
+        $("#submitBtn").click(function () {
+            trimedWord != ''
+           $.ajax({
+               url:"/post/",
+               type:"get",
+               data:{
+                   l : lastId,
+                   t : "submitBtn",
+               },
+               dataType:"json",
+               cache : false,
+               success : function (data) {
+                    $.each(data, function (index, value) {
+                        $("#contentsbox")
+                            .prepend(
+                                '<div class="panel panel-primary anima"><div class="panel-body anima">'+value.text+'</div><div class="panel-footer panel-custom">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'sometext'+'</p>'+'</div></div>'
+                        );
+                        lastId = value.id;
+                        console.log(moment.utc(value.createdAt).fromNow());
+
+                        });
+                    scrollTo(0,0);
+                    $("#writeModal").hide();
+                    $("#submitTextarea").val('');
+                    alert(data[1].createdAt);
+               }
+           }) 
+        });
+
+        $("#refreshBtn").click(function (e) {
+                    $.ajax({
+                    url:"/post/",
+                    type:"get",
+                    data:{
+                    l : lastId,
+                    t : 'refreshBtn',
+                    },
+                    dataType : "json",
+                    cache : false,
+                    success : function (data) {
+                    console.log(data);
+                    $.each(data, function (index, value) {
+                    $("#contentDisplay").prepend("<div id='myid'>"+"<h1>"+value.text+ "<small>"+ 'dodo'+"</small>"+"</h1>"+"</div>");
+                    lastId = value.id;
+                    console.log(moment.utc(value.createdAt).fromNow());
+                    });
+                    console.log();
+                    scrollTo(0,0)
+                }
+            });
+        e.preventDefault();
+        });
+
+        $("#dodo").click(function () {
+            doingman++;
+            alert((start-new Date));
+            $("#contentsbox").append('<div class="panel panel-primary"><div class="panel-body anima">'+doingman+'</div><div class="panel-footer panel-custom">Panel Footer</div></div>')
+        });
+        $("#timecheck").click(function () {
+            var now = new Date;
+            var date = new Date('2017-07-03T15:28:44.221Z');
+            var unit = 1000*60*60*24;
+            var timestamp = Math.floor((now -date) /1000) + "Days";
+            alert(timestamp);
+        });
+
+        $("#textInputBtn").click(function (e) {
+            valueOfTextInput = $("#textInput").val();
+            trimedWord = valueOfTextInput.split(" ").join("");
+            if (trimedWord != ''){
+                $.ajax({
+                    url:"/post/",
+                    type:"get",
+                    data:{
+                        q : valueOfTextInput,
+                        l : lastId,
+                        t : 'submitBtn',
+                        },
+                    dataType : "json",
+                    cache : false,
+                    success : function (data) {
+                        console.log(data);
+                        $.each(data, function (index, value) {
+                            $("#contentDisplay").prepend("<div id='myid'>"+value.text+"</div>");
+                            lastId = value.id;
+                            console.log(moment.utc(value.createdAt).fromNow());
+                        });
+                        console.log()
+                    }
+                });
+                e.preventDefault();
+            }
+            else {
+                e.preventDefault();
+                console.log("nothing")
+            }
+        });
 
         $("#textInput").on('keypress', function (e) {
             var code = e.keyCode || e.which;
             if (code==13){
-                var valueOfTextInput = $("#textInput").val();
+                valueOfTextInput = $("#textInput").val();
                 $.ajax({
                     url:"/post/",
                     type:"get",
