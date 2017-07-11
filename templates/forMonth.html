@@ -7,27 +7,27 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     {% load staticfiles %}
-{#    <script src="{% static 'for1mJs.js' %}"></script>#}
+    <script src="{% static 'for1mJs2.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{% static "base.css" %}">
     <style>
-        
+
     </style>
 
 </head>
 <body style="padding-top:10px; padding-bottom: 70px; overflow-y:scroll;">
 
-  <nav class="navbar navbar-default navbar-fixed-bottom" style="margin-top: 100px;" role="navigation">
+  <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
       <div class="container-fluid">
             <ul class="nav navbar-nav">
-                <li><button class="btn navbar-btn" id="moreLoadBtn">{% block moreBtn %}More{% endblock %}</button></li>
-                <li><button class="btn navbar-btn" data-toggle="modal" data-target="#writeModal">{% block write %}Write{% endblock %}</button></li>
+                <li><button class="btn navbar-btn" id="moreLoadBtn">More</button></li>
+                <li><button class="btn navbar-btn" data-toggle="modal" data-target="#writeModal"><span class="glyphicon glyphicon-pencil"></span></button></li>
                 <li><button class="btn navbar-btn" id="refreshBtn"><span class="glyphicon glyphicon-repeat"></span></button></li>
                 <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% block nowLanguage %}Lang{% endblock %}<b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Lang<b class="caret"></b></a>
                     <ul class="dropdown-menu">
                     <li><a href="/all">All</a></li>
-                    <li><a href="../month/list">For 1 Month</a></li>
+                    <li><a href="#">For 1 Month</a></li>
                     <li><a href="/ara">Arabic</a></li>
                     <li><a href="/ben">Bengali</a></li>
                     <li><a href="/chi">Chinese</a></li>
@@ -50,23 +50,17 @@
             </ul>
         </div><!-- /.navbar-collapse -->
         </nav>
-<span class="hiddenInfo" hidden="true" id="{% block endsentence %}Bye{% endblock %}"></span>
-<span class="hiddenInfoTwo" hidden="true" id="{% block seconds %}s{% endblock %}"></span>
-<span class="hiddenInfoThree" hidden="true" id="{% block language %}all{% endblock %}"></span>
-
     <div class="container">
         <div class="row" id="contentsbox">
             {% if posts %}
                 {% for post in posts %}
                     <div class="panel panel-primary animaEmerge  ">
-                        <div class="panel-body panelheightauto"><p>{{ post.text }}</p></div>
+                        <div class="panel-body panelheightauto" style="height: auto"><p>{{ post.text }}</p></div>
                         <div class="panel-footer panel-custom text-right panelheightauto"><p class="timePTag" id="{{ post.createdAt|date:"c"}}"><span class="glyphicon glyphicon-time"></span></p></div>
                         <span class="hiddenId" hidden="true" id="{{ post.id }}"></span>
                     </div>
                 {% endfor %}
             {% endif %}
-
-        </div>
 
 
         <div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -78,15 +72,14 @@
                                <span aria-hidden="true">&times;</span>
                                <span class="sr-only">Close</span>
                         </button>
-                        <h3 class="modal-title" id="modalHeaderText">{% block modalHeader %}Write_Limited For 100 characters{% endblock %}</h3>
+                        <h3 class="modal-title" id="modalHeaderText">Write min:200 max:2000</h3>
                     </div>
 
                     <!-- Modal Body -->
                     <div class="modal-body">
-
                         <form role="form" id="modalform">
                             <div class="form-group">
-                                <textarea class="form-control" id="submitTextarea" form="modalform" cols="34" rows="5" maxlength="{% block postLength %}100{% endblock %}"></textarea>
+                                <textarea class="form-control" id="submitTextarea" form="modalform" cols="34" rows="10" minlength="200" maxlength="2000"></textarea>
                             </div>
                         </form>
                     </div>
@@ -101,59 +94,62 @@
                 </div>
             </div>
         </div>
+        </div>
     </div>
 </body>
 <script>
-
-    $(document).ready(function () {
+ $(document).ready(function () {
         var lastId = -1;
         var earlyId = -1;
-        var endSentence = $(".hiddenInfo").attr("id");
-        var seconds = $(".hiddenInfoTwo").attr("id");
-        var language = '/'+$(".hiddenInfoThree").attr("id")+'/';
+        var days = 1000*60*60*24;
         if ($(".hiddenId").length) {
                 $(".hiddenId").each(function(index) {
-                    if (earlyId == -1|| earlyId > $(this).attr("id")){
+                    if (earlyId == -1|| earlyId>$(this).attr("id")){
                         earlyId = $(this).attr("id");
                     }
-                    if (lastId == -1|| lastId < $(this).attr("id")){
+                    if (lastId == -1|| lastId<$(this).attr("id")){
                         lastId = $(this).attr("id");
                     }
-                    console.log(lastId)
+                    console.log(earlyId)
                  });
-            }
-            else {
-                console.log('noHiddenId')
-            }
+                console.log('array없이 '+earlyId)
 
-        setInterval(function() {
-            if ($(".timePTag").length) {
-                $(".timePTag").each(function(index) {
-                    var now = new Date;
-                    var id = $(this).attr("id");
-                    var sourcedate = new Date(id);
-                    var timestamp = Math.floor((now - sourcedate) /1000);
-                    if (timestamp>=60){
-                        $(this).text(endSentence);
-                        $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
-                    }
-                    else {
-                        $(this).text((60-timestamp)+seconds);
-                    }
-                 });
             }
-            else {
-                console.log('noclass')
-            }
-        }, 1000);
+        else {
+            console.log('noHiddenId')
+        }
+
+        //###########################################################
+        if ($(".timePTag").length) {
+            $(".timePTag").each(function(index) {
+                var now = new Date;
+                var id = $(this).attr("id");
+
+                var sourcedate = new Date(id);
+                var timestamp = Math.floor((now - sourcedate) /days);
+                if (timestamp>=30){
+                    $(this).text('Expired');
+                    $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
+                }
+                else {
+                    $(this).text((timestamp)+'days ago');
+                }
+             });
+        }
+        else {
+            console.log('noclass')
+        }
+        //###########################################################
+
         $("#submitBtn").click(function () {
             var getText = $("#submitTextarea").val();
-            if (getText != ''){
+            if (getText.length >= 200){
                 $.ajax({
-                url:language,
+                url:"/month/list/",
                 type:"get",
                 data:{
                     l : lastId,
+                    e : earlyId,
                     t : "submitBtn",
                     c : getText,
                 },
@@ -165,26 +161,54 @@
                                 .prepend(
                                 '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
                                 );
+
                             lastId = value.id;
+
+
                         });
+
+                        console.log('섭밋후얼리아이디 최소값'+earlyId);
+
                         scrollTo(0,0);
+
                         $("#writeModal").hide();
                         $("#submitTextarea").val('');
+                        if ($(".timePTag").length) {
+                        $(".timePTag").each(function(index) {
+                            var now = new Date;
+                            var id = $(this).attr("id");
+
+                            var sourcedate = new Date(id);
+                            var timestamp = Math.floor((now - sourcedate) /days);
+                            if (timestamp>=30){
+                            $(this).text('Expired');
+                            $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
+                            }
+                            else {
+                            $(this).text((timestamp)+'days ago');
+                            }
+                            });
+                            }
+                            else {
+                        console.log('noclass')
+                        }
                      }
                 });
 
             }
             else {
-                alert("Would you write any sentences. Please?!")
+                alert("Would you write anything more, Please?! min : 200 max : 5000")
             }
 
         });
+        //###########################################################
 
         $("#refreshBtn").click(function (e) {
                     $.ajax({
-                    url:language,
+                    url:"/month/list/",
                     type:"get",
                     data:{
+                    e : earlyId,
                     l : lastId,
                     t : 'refreshBtn',
                     },
@@ -196,39 +220,83 @@
                                 .prepend(
                                 '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
                                 );
+
                             lastId = value.id;
+
                         });
+                        console.log('리프레시후얼리아이디 최소값'+earlyId);
+
                         scrollTo(0,0);
-                }
+
+                        if ($(".timePTag").length) {
+                        $(".timePTag").each(function(index) {
+                        var now = new Date;
+                        var id = $(this).attr("id");
+
+                        var sourcedate = new Date(id);
+                        var timestamp = Math.floor((now - sourcedate) /days);
+                        if (timestamp>=30){
+                        $(this).text('Expired');
+                        $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
+                        }
+                        else {
+                        $(this).text((timestamp)+'days ago');
+                        }
+                        });
+                        }
+                        else {
+                        console.log('noclass')
+                        }
+                    }
+
             });
         e.preventDefault();
         });
 
 
-        $("#moreLoadBtn").click(function () {
-                    $.ajax({
-                    url:language,
-                    type:"get",
-                    data:{
-                    e : earlyId,
-                    t : 'moreLoad',
-                    },
-                    dataType : "json",
-                    cache : false,
-                    success : function (data) {
-                        $.each(data, function (index, value) {
-                            $("#contentsbox")
-                            .append(
-                            '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
-                            );
-                            if (earlyId > value.id){
-                            earlyId = value.id;
-                            }
-                        });
-                        window.scrollTo(0,document.body.scrollHeight);
-                       }
+       $("#moreLoadBtn").click(function () {
+                $.ajax({
+                url:'/month/list/',
+                type:"get",
+                data:{
+                e : earlyId,
+                t : 'moreLoad',
+                },
+                dataType : "json",
+                cache : false,
+                success : function (data) {
+                    $.each(data, function (index, value) {
+                        $("#contentsbox")
+                        .append(
+                        '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
+                        );
+                        if (earlyId > value.id){
+                        earlyId = value.id;
+                        }
                     });
+                    if ($(".timePTag").length) {
+                    $(".timePTag").each(function(index) {
+                    var now = new Date;
+                    var id = $(this).attr("id");
+
+                    var sourcedate = new Date(id);
+                    var timestamp = Math.floor((now - sourcedate) /days);
+                    if (timestamp>=30){
+                    $(this).text('Expired');
+                    $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
+                    }
+                    else {
+                    $(this).text((timestamp)+'days ago');
+                    }
+                    });
+                    }
+                    else {
+                    console.log('noclass')
+                    }
+                    window.scrollTo(0,document.body.scrollHeight);
+                   }
                 });
+            });
 
     });
 </script>
