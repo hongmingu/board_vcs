@@ -20,9 +20,8 @@ from post import views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.postList, name=''),
+    url(r'^$', TemplateView.as_view(template_name='main.html'), name='main'),
     url(r'^(?P<language>[a-z]+)/$', views.postLanguageList, name='language'),
     url(r'^month/list/$', views.postMonthList, name='month'),
-
-    url(r'^hello/some/$', TemplateView.as_view(template_name='baseAra.html'), name='language'),
+    url(r'^mainStatus/$', views.mainStatus, name='mainStatus'),
 ]

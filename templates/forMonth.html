@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     {% load staticfiles %}
-    <script src="{% static 'for1mJs2.js' %}"></script>
+    <script src="{% static 'for1m_2.js' %}"></script>
+    <script src="{% static 'jquery_csrf.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{% static "base.css" %}">
     <style>
@@ -26,25 +27,25 @@
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Lang<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                    <li><a href="/all">All</a></li>
-                    <li><a href="#">For 1 Month</a></li>
-                    <li><a href="/ara">Arabic</a></li>
-                    <li><a href="/ben">Bengali</a></li>
-                    <li><a href="/chi">Chinese</a></li>
-                    <li><a href="/eng">English</a></li>
-                    <li><a href="/fre">French</a></li>
-                    <li><a href="/ger">German</a></li>
-                    <li><a href="/hin">Hindi</a></li>
-                    <li><a href="/jap">Japanese</a></li>
-                    <li><a href="/jav">Javanese</a></li>
-                    <li><a href="/kor">Korean</a></li>
-                    <li><a href="/lah">Lahnda</a></li>
-                    <li><a href="/mal">Malay</a></li>
-                    <li><a href="/por">Portuguese</a></li>
-                    <li><a href="/rus">Russian</a></li>
-                    <li><a href="/spa">Spanish</a></li>
-                    <li><a href="/tel">Telugu</a></li>
-                    <li><a href="/">For1m</a></li>
+                    <li><a style="padding: 1px" href="{% url 'month' %}">For 1 Month</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'all' %}">All</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'ara' %}">Arabic</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'ben' %}">Bengali</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'chi' %}">Chinese</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'eng' %}">English</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'fre' %}">French</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'ger' %}">German</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'hin' %}">Hindi</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'jap' %}">Japanese</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'jav' %}">Javanese</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'kor' %}">Korean</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'lah' %}">Lahnda</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'mal' %}">Malay</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'por' %}">Portuguese</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'rus' %}">Russian</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'spa' %}">Spanish</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'tel' %}">Telugu</a></li>
+                    <li><a style="padding: 1px" href="{% url 'main' %}">main</a></li>
                 </ul>
               </li>
             </ul>
@@ -98,206 +99,6 @@
     </div>
 </body>
 <script>
- $(document).ready(function () {
-        var lastId = -1;
-        var earlyId = -1;
-        var days = 1000*60*60*24;
-        if ($(".hiddenId").length) {
-                $(".hiddenId").each(function(index) {
-                    if (earlyId == -1|| earlyId>$(this).attr("id")){
-                        earlyId = $(this).attr("id");
-                    }
-                    if (lastId == -1|| lastId<$(this).attr("id")){
-                        lastId = $(this).attr("id");
-                    }
-                    console.log(earlyId)
-                 });
-                console.log('array없이 '+earlyId)
 
-            }
-        else {
-            console.log('noHiddenId')
-        }
-
-        //###########################################################
-        if ($(".timePTag").length) {
-            $(".timePTag").each(function(index) {
-                var now = new Date;
-                var id = $(this).attr("id");
-
-                var sourcedate = new Date(id);
-                var timestamp = Math.floor((now - sourcedate) /days);
-                if (timestamp>=30){
-                    $(this).text('Expired');
-                    $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
-                }
-                else {
-                    $(this).text((timestamp)+'days ago');
-                }
-             });
-        }
-        else {
-            console.log('noclass')
-        }
-        //###########################################################
-
-        $("#submitBtn").click(function () {
-            var getText = $("#submitTextarea").val();
-            if (getText.length >= 200){
-                $.ajax({
-                url:"/month/list/",
-                type:"get",
-                data:{
-                    l : lastId,
-                    e : earlyId,
-                    t : "submitBtn",
-                    c : getText,
-                },
-                dataType:"json",
-                cache : false,
-                success : function (data) {
-                        $.each(data, function (index, value) {
-                            $("#contentsbox")
-                                .prepend(
-                                '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
-                                );
-
-                            lastId = value.id;
-
-
-                        });
-
-                        console.log('섭밋후얼리아이디 최소값'+earlyId);
-
-                        scrollTo(0,0);
-
-                        $("#writeModal").hide();
-                        $("#submitTextarea").val('');
-                        if ($(".timePTag").length) {
-                        $(".timePTag").each(function(index) {
-                            var now = new Date;
-                            var id = $(this).attr("id");
-
-                            var sourcedate = new Date(id);
-                            var timestamp = Math.floor((now - sourcedate) /days);
-                            if (timestamp>=30){
-                            $(this).text('Expired');
-                            $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
-                            }
-                            else {
-                            $(this).text((timestamp)+'days ago');
-                            }
-                            });
-                            }
-                            else {
-                        console.log('noclass')
-                        }
-                     }
-                });
-
-            }
-            else {
-                alert("Would you write anything more, Please?! min : 200 max : 5000")
-            }
-
-        });
-        //###########################################################
-
-        $("#refreshBtn").click(function (e) {
-                    $.ajax({
-                    url:"/month/list/",
-                    type:"get",
-                    data:{
-                    e : earlyId,
-                    l : lastId,
-                    t : 'refreshBtn',
-                    },
-                    dataType : "json",
-                    cache : false,
-                    success : function (data) {
-                        $.each(data, function (index, value) {
-                            $("#contentsbox")
-                                .prepend(
-                                '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
-                                );
-
-                            lastId = value.id;
-
-                        });
-                        console.log('리프레시후얼리아이디 최소값'+earlyId);
-
-                        scrollTo(0,0);
-
-                        if ($(".timePTag").length) {
-                        $(".timePTag").each(function(index) {
-                        var now = new Date;
-                        var id = $(this).attr("id");
-
-                        var sourcedate = new Date(id);
-                        var timestamp = Math.floor((now - sourcedate) /days);
-                        if (timestamp>=30){
-                        $(this).text('Expired');
-                        $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
-                        }
-                        else {
-                        $(this).text((timestamp)+'days ago');
-                        }
-                        });
-                        }
-                        else {
-                        console.log('noclass')
-                        }
-                    }
-
-            });
-        e.preventDefault();
-        });
-
-
-       $("#moreLoadBtn").click(function () {
-                $.ajax({
-                url:'/month/list/',
-                type:"get",
-                data:{
-                e : earlyId,
-                t : 'moreLoad',
-                },
-                dataType : "json",
-                cache : false,
-                success : function (data) {
-                    $.each(data, function (index, value) {
-                        $("#contentsbox")
-                        .append(
-                        '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
-                        );
-                        if (earlyId > value.id){
-                        earlyId = value.id;
-                        }
-                    });
-                    if ($(".timePTag").length) {
-                    $(".timePTag").each(function(index) {
-                    var now = new Date;
-                    var id = $(this).attr("id");
-
-                    var sourcedate = new Date(id);
-                    var timestamp = Math.floor((now - sourcedate) /days);
-                    if (timestamp>=30){
-                    $(this).text('Expired');
-                    $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
-                    }
-                    else {
-                    $(this).text((timestamp)+'days ago');
-                    }
-                    });
-                    }
-                    else {
-                    console.log('noclass')
-                    }
-                    window.scrollTo(0,document.body.scrollHeight);
-                   }
-                });
-            });
-
-    });
 </script>
 </html>

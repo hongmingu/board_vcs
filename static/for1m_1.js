@@ -7,19 +7,17 @@
         var language = '/'+$(".hiddenInfoThree").attr("id")+'/';
         if ($(".hiddenId").length) {
                 $(".hiddenId").each(function(index) {
-                    if (earlyId == -1|| earlyId>$(this).attr("id")){
+                    if (earlyId == -1|| earlyId > $(this).attr("id")){
                         earlyId = $(this).attr("id");
                     }
-                    if (lastId == -1|| lastId<$(this).attr("id")){
+                    if (lastId == -1|| lastId < $(this).attr("id")){
                         lastId = $(this).attr("id");
                     }
-                    console.log(lastId)
                  });
             }
             else {
-                console.log('noHiddenId')
             }
-
+        //###########################################################
         setInterval(function() {
             if ($(".timePTag").length) {
                 $(".timePTag").each(function(index) {
@@ -37,7 +35,6 @@
                  });
             }
             else {
-                console.log('noclass')
             }
         }, 1000);
         $("#submitBtn").click(function () {
@@ -45,7 +42,7 @@
             if (getText != ''){
                 $.ajax({
                 url:language,
-                type:"get",
+                type:"post",
                 data:{
                     l : lastId,
                     t : "submitBtn",
@@ -99,20 +96,18 @@
         });
 
 
-        $("#moreLoadBtn").click(function () {
+        $("#moreLoadBtn").click(function (e) {
                     $.ajax({
-                    url:"/month/list/",
+                    url:language,
                     type:"get",
                     data:{
                     e : earlyId,
-                    l : lastId,
                     t : 'moreLoad',
                     },
                     dataType : "json",
                     cache : false,
                     success : function (data) {
                         $.each(data, function (index, value) {
-
                             $("#contentsbox")
                             .append(
                             '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
@@ -121,8 +116,10 @@
                             earlyId = value.id;
                             }
                         });
+                        window.scrollTo(0,document.body.scrollHeight);
                        }
                     });
+                    e.preventDefault();
                 });
 
     });

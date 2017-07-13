@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Title{% endblock %}</title>
@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     {% load staticfiles %}
-{#    <script src="{% static 'for1mJs.js' %}"></script>#}
+    <script src="{% static 'for1m_1.js' %}"></script>
+    <script src="{% static 'jquery_csrf.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="{% static "base.css" %}">
     <style>
@@ -15,6 +16,7 @@
     </style>
 
 </head>
+
 <body style="padding-top:10px; padding-bottom: 70px; overflow-y:scroll;">
 
   <nav class="navbar navbar-default navbar-fixed-bottom" style="margin-top: 100px;" role="navigation">
@@ -26,25 +28,25 @@
                 <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% block nowLanguage %}Lang{% endblock %}<b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                    <li><a href="/all">All</a></li>
-                    <li><a href="../month/list">For 1 Month</a></li>
-                    <li><a href="/ara">Arabic</a></li>
-                    <li><a href="/ben">Bengali</a></li>
-                    <li><a href="/chi">Chinese</a></li>
-                    <li><a href="/eng">English</a></li>
-                    <li><a href="/fre">French</a></li>
-                    <li><a href="/ger">German</a></li>
-                    <li><a href="/hin">Hindi</a></li>
-                    <li><a href="/jap">Japanese</a></li>
-                    <li><a href="/jav">Javanese</a></li>
-                    <li><a href="/kor">Korean</a></li>
-                    <li><a href="/lah">Lahnda</a></li>
-                    <li><a href="/mal">Malay</a></li>
-                    <li><a href="/por">Portuguese</a></li>
-                    <li><a href="/rus">Russian</a></li>
-                    <li><a href="/spa">Spanish</a></li>
-                    <li><a href="/tel">Telugu</a></li>
-                    <li><a href="/">For1m</a></li>
+                    <li><a style="padding: 1px" href="{% url 'month' %}">For 1 Month</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'all' %}">All</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'ara' %}">Arabic</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'ben' %}">Bengali</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'chi' %}">Chinese</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'eng' %}">English</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'fre' %}">French</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'ger' %}">German</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'hin' %}">Hindi</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'jap' %}">Japanese</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'jav' %}">Javanese</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'kor' %}">Korean</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'lah' %}">Lahnda</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'mal' %}">Malay</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'por' %}">Portuguese</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'rus' %}">Russian</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'spa' %}">Spanish</a></li>
+                    <li><a style="padding: 1px" href="{% url 'language' 'tel' %}">Telugu</a></li>
+                    <li><a style="padding: 1px" href="{% url 'main' %}">main</a></li>
                 </ul>
               </li>
             </ul>
@@ -105,131 +107,5 @@
 </body>
 <script>
 
-    $(document).ready(function () {
-        var lastId = -1;
-        var earlyId = -1;
-        var endSentence = $(".hiddenInfo").attr("id");
-        var seconds = $(".hiddenInfoTwo").attr("id");
-        var language = '/'+$(".hiddenInfoThree").attr("id")+'/';
-        if ($(".hiddenId").length) {
-                $(".hiddenId").each(function(index) {
-                    if (earlyId == -1|| earlyId > $(this).attr("id")){
-                        earlyId = $(this).attr("id");
-                    }
-                    if (lastId == -1|| lastId < $(this).attr("id")){
-                        lastId = $(this).attr("id");
-                    }
-                    console.log(lastId)
-                 });
-            }
-            else {
-                console.log('noHiddenId')
-            }
-
-        setInterval(function() {
-            if ($(".timePTag").length) {
-                $(".timePTag").each(function(index) {
-                    var now = new Date;
-                    var id = $(this).attr("id");
-                    var sourcedate = new Date(id);
-                    var timestamp = Math.floor((now - sourcedate) /1000);
-                    if (timestamp>=60){
-                        $(this).text(endSentence);
-                        $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
-                    }
-                    else {
-                        $(this).text((60-timestamp)+seconds);
-                    }
-                 });
-            }
-            else {
-                console.log('noclass')
-            }
-        }, 1000);
-        $("#submitBtn").click(function () {
-            var getText = $("#submitTextarea").val();
-            if (getText != ''){
-                $.ajax({
-                url:language,
-                type:"get",
-                data:{
-                    l : lastId,
-                    t : "submitBtn",
-                    c : getText,
-                },
-                dataType:"json",
-                cache : false,
-                success : function (data) {
-                        $.each(data, function (index, value) {
-                            $("#contentsbox")
-                                .prepend(
-                                '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
-                                );
-                            lastId = value.id;
-                        });
-                        scrollTo(0,0);
-                        $("#writeModal").hide();
-                        $("#submitTextarea").val('');
-                     }
-                });
-
-            }
-            else {
-                alert("Would you write any sentences. Please?!")
-            }
-
-        });
-
-        $("#refreshBtn").click(function (e) {
-                    $.ajax({
-                    url:language,
-                    type:"get",
-                    data:{
-                    l : lastId,
-                    t : 'refreshBtn',
-                    },
-                    dataType : "json",
-                    cache : false,
-                    success : function (data) {
-                        $.each(data, function (index, value) {
-                            $("#contentsbox")
-                                .prepend(
-                                '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
-                                );
-                            lastId = value.id;
-                        });
-                        scrollTo(0,0);
-                }
-            });
-        e.preventDefault();
-        });
-
-
-        $("#moreLoadBtn").click(function () {
-                    $.ajax({
-                    url:language,
-                    type:"get",
-                    data:{
-                    e : earlyId,
-                    t : 'moreLoad',
-                    },
-                    dataType : "json",
-                    cache : false,
-                    success : function (data) {
-                        $.each(data, function (index, value) {
-                            $("#contentsbox")
-                            .append(
-                            '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
-                            );
-                            if (earlyId > value.id){
-                            earlyId = value.id;
-                            }
-                        });
-                        window.scrollTo(0,document.body.scrollHeight);
-                       }
-                    });
-                });
-
-    });
 </script>
 </html>

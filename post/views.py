@@ -1,35 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
+from django.template import RequestContext
 from post.models import *
 from datetime import datetime, timedelta
-from django.http import HttpResponse, JsonResponse
+from django.utils import timezone
+from django.http import JsonResponse
 
 # Create your views here.
-def postList(request):
-    if request.method == "GET":
-        elasped_seconds = datetime.now() - timedelta(seconds=60)
-        type = request.GET.get('t', 0)
-        lastId = request.GET.get('l', 0)
-        dodo = PostAll
-        if request.is_ajax():
-            if type == 'submitBtn':
-                content = request.GET.get('c', 'Wrong Sentences or Wrong Process Happend')
-                postToSave = PostAll(text = content)
-                postToSave.save()
-                list_i = PostAll.objects.filter(createdAt__gte=elasped_seconds).filter(id__gt = lastId).order_by("createdAt")
-                toGoList = list(list_i.values('id', 'text', 'createdAt'))
-                return JsonResponse(toGoList, safe=False)
-            elif type =='refreshBtn' :
-                list_i = PostAll.objects.filter(createdAt__gte=elasped_seconds).filter(id__gt = lastId).order_by("createdAt")
-                toGoList = list(list_i.values('id', 'text', 'createdAt'))
-                return JsonResponse(toGoList, safe=False)
-            else:
-                return JsonResponse({'res':"You've got wrong response or no AjaxResponse"}, safe=False)
-        else:
-            list_i = dodo.objects.filter(createdAt__gte=elasped_seconds).filter(id__gt=lastId).order_by("-createdAt")
-            toGoList = {
-                'posts' : list_i,
-            }
-            return render(request, 'base.html', toGoList)
 
 def switch(x):
     return {
@@ -74,73 +50,118 @@ def switchTem(x):
     }.get(x, 'all.html')
 
 def postLanguageList(request, language):
-    if request.method == "GET":
-        elasped_seconds = datetime.now() - timedelta(seconds=60)
-        type = request.GET.get('t', 0)
-        lastId = request.GET.get('l', 0)
-        earlyId = request.GET.get('e',0)
+    pbyl = switch(language)
+    tbyl = switchTem(language)
+    es = timezone.now() - timedelta(seconds=60)
 
-        postByLang = switch(language)
-        temByLang = switchTem(language)
-
-
+    if request.method == "POST":
+        t = request.POST.get('t', 0)
+        l = request.POST.get('l', 0)
         if request.is_ajax():
-            if type == 'submitBtn':
-                content = request.GET.get('c', 'Wrong Sentences or Wrong Process Happend')
-                postToSave = postByLang(text = content)
-                postToSave.save()
-                querysetList = postByLang.objects.filter(createdAt__gte=elasped_seconds).filter(id__gt = lastId).order_by("-createdAt")
-                toGoList = list(querysetList.values('id', 'text', 'createdAt'))
-                return JsonResponse(toGoList, safe=False)
-            elif type =='refreshBtn' :
-                querysetList = postByLang.objects.filter(createdAt__gte=elasped_seconds).filter(id__gt = lastId).order_by("-createdAt")
-                toGoList = list(querysetList.values('id', 'text', 'createdAt'))
-                return JsonResponse(toGoList, safe=False)
-            elif type == 'moreLoad':
-                querysetList = postByLang.objects.filter(createdAt__gte=elasped_seconds).filter(id__lt=earlyId).order_by(
-                    "-createdAt")[:2]
-                toGoList = list(querysetList.values('id', 'text', 'createdAt'))
-                return JsonResponse(toGoList, safe=False)
+            if t == 'submitBtn':
+                c = request.POST.get('c', 'Wrong Sentences or Wrong Process Happend')
+                pts = pbyl(text = c)
+                pts.save()
+                ql = pbyl.objects.filter(createdAt__gte=es).filter(id__gt = l).order_by("-createdAt")
+                tgl = list(ql.values('id', 'text', 'createdAt'))
+                return JsonResponse(tgl, safe=False)
             else:
                 return JsonResponse({'res':"You've got wrong response or no AjaxResponse"}, safe=False)
-        else:
-            querysetList = postByLang.objects.filter(createdAt__gte=elasped_seconds).filter(id__gt=lastId).order_by("-createdAt")[:2]
-            toGoList = {
-                'posts' : querysetList,
-            }
-            return render(request, temByLang, toGoList)
 
-def postMonthList(request):
-    if request.method == 'GET':
-        elasped_days = datetime.now() - timedelta(days=30)
-        type =request.GET.get('t',0)
-        lastId = request.GET.get('l',0)
-        earlyId = request.GET.get('e',0)
+    elif request.method == 'GET':
+        t = request.GET.get('t', 0)
+        l = request.GET.get('l', 0)
+        e = request.GET.get('e',0)
 
         if request.is_ajax():
-            if type == 'submitBtn':
-                content = request.GET.get('c', 'Wrong Sentences or Wrong Process Happend')
-                postToSave = PostForMonth(text=content)
-                postToSave.save()
-                querysetList = PostForMonth.objects.filter(createdAt__gte=elasped_days).filter(id__gt = lastId).order_by("-createdAt")
-                toGoList = list(querysetList.values('id', 'text', 'createdAt'))
-                return JsonResponse(toGoList, safe=False)
-            elif type == 'refreshBtn':
-                querysetList = PostForMonth.objects.filter(createdAt__gte=elasped_days).filter(id__gt=lastId).order_by(
-                "-createdAt")
-                toGoList = list(querysetList.values('id', 'text', 'createdAt'))
-                return JsonResponse(toGoList, safe=False)
-            elif type == 'moreLoad':
-                querysetList = PostForMonth.objects.filter(createdAt__gte=elasped_days).filter(id__lt=earlyId).order_by(
-                    "-createdAt")[:5]
-                toGoList = list(querysetList.values('id', 'text', 'createdAt'))
-                return JsonResponse(toGoList, safe=False)
+            if t =='refreshBtn' :
+                ql = pbyl.objects.filter(createdAt__gte=es).filter(id__gt = l).order_by("-createdAt")
+                tgl = list(ql.values('id', 'text', 'createdAt'))
+                return JsonResponse(tgl, safe=False)
+            elif t == 'moreLoad':
+                ql = pbyl.objects.filter(createdAt__gte=es).filter(id__lt=e).order_by("-createdAt")[:10]
+                tgl = list(ql.values('id', 'text', 'createdAt'))
+                return JsonResponse(tgl, safe=False)
             else:
                 return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
+
         else:
-            querysetList = PostForMonth.objects.filter(createdAt__gte=elasped_days).filter(id__gt=lastId).order_by(
-                "-createdAt")[:5]
-            toGoList = {
-                'posts': querysetList,
+            ql = pbyl.objects.filter(createdAt__gte=es).order_by("-createdAt")[:10]
+        tgl = {
+            'posts' : ql,
+        }
+        return render(request, tbyl, tgl)
+
+    else:
+        return JsonResponse({'res': "You've used wrong request"}, safe=False)
+
+
+def postMonthList(request):
+    ed = timezone.now() - timedelta(days=30)
+
+    if request.method == 'POST':
+        t =request.POST.get('t',0)
+        l = request.POST.get('l',0)
+
+        if request.is_ajax():
+            if t == 'submitBtn':
+                c = request.POST.get('c', 'Wrong Sentences or Wrong Process Happend')
+                pts = PostForMonth(text=c)
+                pts.save()
+                ql = PostForMonth.objects.filter(createdAt__gte=ed).filter(id__gt = l).order_by("-createdAt")
+                tgl = list(ql.values('id', 'text', 'createdAt'))
+                return JsonResponse(tgl, safe=False)
+
+            else:
+                return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
+    elif request.method=='GET':
+
+        if request.is_ajax():
+            t = request.GET.get('t', 0)
+            l = request.GET.get('l', 0)
+            e = request.GET.get('e', 0)
+            if t == 'refreshBtn':
+                ql = PostForMonth.objects.filter(createdAt__gte=ed).filter(id__gt=l).order_by("-createdAt")
+                tgl = list(ql.values('id', 'text', 'createdAt'))
+                return JsonResponse(tgl, safe=False)
+            elif t == 'moreLoad':
+                ql = PostForMonth.objects.filter(createdAt__gte=ed).filter(id__lt=e).order_by(
+                    "-createdAt")[:5]
+                tgl = list(ql.values('id', 'text', 'createdAt'))
+                return JsonResponse(tgl, safe=False)
+            else:
+                return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
+
+        else:
+            ql = PostForMonth.objects.filter(createdAt__gte=ed).order_by("-createdAt")[:5]
+            tgl = {
+                'posts': ql,
             }
-            return render(request, 'forMonth.html', toGoList)
+            return render(request, 'forMonth.html', tgl)
+
+    else:
+        return JsonResponse({'res': "You've used wrong request"}, safe=False)
+
+def mainStatus(request):
+    if request.method == 'GET':
+        if request.is_ajax():
+            b = []
+            elasped_seconds = datetime.now() - timedelta(seconds=60)
+            ll = ['all', 'ara', 'ben', 'chi', 'eng', 'fre', 'ger', 'hin', 'jap', 'jav', 'kor', 'lah', 'mal', 'por', 'rus', 'spa', 'tel']
+            for lan in ll:
+                b.append(switch(lan).objects.filter(createdAt__gte=elasped_seconds).count())
+
+            return JsonResponse(b, safe=False)
+
+def handler404(request):
+    response = render_to_response('404.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 404
+    return response
+
+
+def handler500(request):
+    response = render_to_response('500.html', {},
+                                  context_instance=RequestContext(request))
+    response.status_code = 500
+    return response
