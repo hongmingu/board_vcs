@@ -79,14 +79,14 @@ def postLanguageList(request, language):
                 tgl = list(ql.values('id', 'text', 'createdAt'))
                 return JsonResponse(tgl, safe=False)
             elif t == 'moreLoad':
-                ql = pbyl.objects.filter(createdAt__gte=es).filter(id__lt=e).order_by("-createdAt")[:10]
+                ql = pbyl.objects.filter(createdAt__gte=es).filter(id__lt=e).order_by("-createdAt")[:5]
                 tgl = list(ql.values('id', 'text', 'createdAt'))
                 return JsonResponse(tgl, safe=False)
             else:
                 return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
 
         else:
-            ql = pbyl.objects.filter(createdAt__gte=es).order_by("-createdAt")[:10]
+            ql = pbyl.objects.filter(createdAt__gte=es).order_by("-createdAt")[:15]
         tgl = {
             'posts' : ql,
         }
@@ -134,7 +134,7 @@ def postMonthList(request):
                 return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
 
         else:
-            ql = PostForMonth.objects.filter(createdAt__gte=ed).order_by("-createdAt")[:5]
+            ql = PostForMonth.objects.filter(createdAt__gte=ed).order_by("-createdAt")[:15]
             tgl = {
                 'posts': ql,
             }
