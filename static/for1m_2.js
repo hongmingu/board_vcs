@@ -1,6 +1,3 @@
-/**
- * Created by Keepair on 2017-07-12.
- */
 $(document).ready(function () {
         var lastId = -1;
         var earlyId = -1;
@@ -41,7 +38,9 @@ $(document).ready(function () {
 
         $("#submitBtn").click(function () {
             var getText = $("#submitTextarea").val();
-            if (getText.length >= 200){
+            getText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+            console.log(getText);
+            if (getText.length >= 50){
                 $.ajax({
                 url:"/month/list/",
                 type:"post",
@@ -57,7 +56,7 @@ $(document).ready(function () {
                         $.each(data, function (index, value) {
                             $("#contentsbox")
                                 .prepend(
-                                '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
+                                    '<div class="row" style="padding-top:10px;"><a href="'+value.id+'"><div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 animaEmerge"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left textBoxBody wordBreak"><p>'+value.title+'</p></div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right textBoxFooter"><p class="timePTag" id="'+value.createdAt+'"><span class="glyphicon glyphicon-time"></span></p></div></div></div></a></div>'
                                 );
 
                             lastId = value.id;
@@ -90,7 +89,7 @@ $(document).ready(function () {
 
             }
             else {
-                alert("Would you write anything more, Please?! min : 200 max : 5000")
+                alert("Would you write anything more, Please?! min : 50 max : 5000")
             }
 
         });
@@ -111,7 +110,7 @@ $(document).ready(function () {
                         $.each(data, function (index, value) {
                             $("#contentsbox")
                                 .prepend(
-                                '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
+                                    '<div class="row" style="padding-top:10px;"><a href="'+value.id+'"><div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 animaEmerge"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left textBoxBody wordBreak"><p>'+value.title+'</p></div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right textBoxFooter"><p class="timePTag" id="'+value.createdAt+'"><span class="glyphicon glyphicon-time"></span></p></div></div></div></a></div>'
                                 );
 
                             lastId = value.id;
@@ -159,7 +158,7 @@ $(document).ready(function () {
                     $.each(data, function (index, value) {
                         $("#contentsbox")
                         .append(
-                        '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
+                            '<div class="row" style="padding-top:10px;"><a href="'+value.id+'"><div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 animaEmerge"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left textBoxBody wordBreak"><p>'+value.title+'</p></div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right textBoxFooter"><p class="timePTag" id="'+value.createdAt+'"><span class="glyphicon glyphicon-time"></span></p></div></div></div></a></div>'
                         );
                         if (earlyId > value.id){
                         earlyId = value.id;

@@ -18,27 +18,30 @@
             else {
             }
         //###########################################################
+
         setInterval(function() {
             if ($(".timePTag").length) {
                 $(".timePTag").each(function(index) {
-                    var now = new Date;
-                    var id = $(this).attr("id");
-                    var sourcedate = new Date(id);
-                    var timestamp = Math.floor((now - sourcedate) /1000);
-                    if (timestamp>=60){
-                        $(this).text(endSentence);
-                        $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
-                    }
-                    else {
-                        $(this).text((60-timestamp)+seconds);
-                    }
-                 });
+                var now = new Date;
+                var id = $(this).attr("id");
+
+                var sourcedate = new Date(id);
+                var timestamp = Math.floor((now - sourcedate) /1000);
+                if (timestamp>=60){
+                $(this).text(endSentence);
+                $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
+                }
+                else {
+                $(this).text((60-timestamp)+seconds);
+                }
+                });
             }
             else {
             }
         }, 1000);
         $("#submitBtn").click(function () {
             var getText = $("#submitTextarea").val();
+            getText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
             if (getText != ''){
                 $.ajax({
                 url:language,
@@ -54,7 +57,7 @@
                         $.each(data, function (index, value) {
                             $("#contentsbox")
                                 .prepend(
-                                '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
+                                    '<div class="row" style="padding-top:10px;"><div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 animaEmerge"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left textBoxBody wordBreak"><p>'+value.text+'</p></div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right textBoxFooter"><p class="timePTag" id="'+value.createdAt+'"><span class="glyphicon glyphicon-time"></span></p></div></div></div></a></div>'
                                 );
                             lastId = value.id;
                         });
@@ -85,7 +88,7 @@
                         $.each(data, function (index, value) {
                             $("#contentsbox")
                                 .prepend(
-                                '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
+                                    '<div class="row" style="padding-top:10px;"><div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 animaEmerge"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left textBoxBody wordBreak"><p>'+value.text+'</p></div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right textBoxFooter"><p class="timePTag" id="'+value.createdAt+'"><span class="glyphicon glyphicon-time"></span></p></div></div></div></a></div>'
                                 );
                             lastId = value.id;
                         });
@@ -110,7 +113,7 @@
                         $.each(data, function (index, value) {
                             $("#contentsbox")
                             .append(
-                            '<div class="panel panel-primary anima"><div class="panel-body animaEmerge panelheightauto">'+value.text+'</div><div class="panel-footer panel-custom text-right panelheightauto">'+ '<p class="timePTag" id="'+value.createdAt+'">'+'<span class="glyphicon glyphicon-time"></span>'+'</p>'+'</div></div>'
+                                '<div class="row" style="padding-top:10px;"><div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 animaEmerge"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left textBoxBody wordBreak"><p>'+value.text+'</p></div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right textBoxFooter"><p class="timePTag" id="'+value.createdAt+'"><span class="glyphicon glyphicon-time"></span></p></div></div></div></a></div>'
                             );
                             if (earlyId > value.id){
                             earlyId = value.id;

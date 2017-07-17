@@ -10,7 +10,7 @@
     <script src="{% static 'for1m_1.js' %}"></script>
     <script src="{% static 'jquery_csrf.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{% static "base.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "base_three.css" %}">
     <style>
         
     </style>
@@ -18,91 +18,61 @@
 </head>
 
 <body style="padding-top:10px; padding-bottom: 70px; overflow-y:scroll;">
+    <div class="container-fluid">
 
-  <nav class="navbar navbar-default navbar-fixed-bottom" style="margin-top: 100px;" role="navigation">
-      <div class="container-fluid">
-            <ul class="nav navbar-nav">
-                <li><button class="btn navbar-btn" id="moreLoadBtn">{% block moreBtn %}More{% endblock %}</button></li>
-                <li><button class="btn navbar-btn" data-toggle="modal" data-target="#writeModal">{% block write %}Write{% endblock %}</button></li>
-                <li><button class="btn navbar-btn" id="refreshBtn"><span class="glyphicon glyphicon-repeat"></span></button></li>
-                <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% block nowLanguage %}Lang{% endblock %}<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                    <li><a style="padding: 1px" href="{% url 'month' %}">For 1 Month</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'all' %}">All</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'ara' %}">Arabic</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'ben' %}">Bengali</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'chi' %}">Chinese</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'eng' %}">English</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'fre' %}">French</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'ger' %}">German</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'hin' %}">Hindi</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'jap' %}">Japanese</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'jav' %}">Javanese</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'kor' %}">Korean</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'lah' %}">Lahnda</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'mal' %}">Malay</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'por' %}">Portuguese</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'rus' %}">Russian</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'spa' %}">Spanish</a></li>
-                    <li><a style="padding: 1px" href="{% url 'language' 'tel' %}">Telugu</a></li>
-                    <li><a style="padding: 1px" href="{% url 'main' %}">main</a></li>
-                </ul>
-              </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-        </nav>
+    </div>
+
 <span class="hiddenInfo" hidden="true" id="{% block endsentence %}Bye{% endblock %}"></span>
 <span class="hiddenInfoTwo" hidden="true" id="{% block seconds %}s{% endblock %}"></span>
 <span class="hiddenInfoThree" hidden="true" id="{% block language %}all{% endblock %}"></span>
 
-    <div class="container">
-        <div class="row" id="contentsbox">
-            {% if posts %}
-                {% for post in posts %}
-                    <div class="panel panel-primary animaEmerge  ">
-                        <div class="panel-body panelheightauto"><p>{{ post.text }}</p></div>
-                        <div class="panel-footer panel-custom text-right panelheightauto"><p class="timePTag" id="{{ post.createdAt|date:"c"}}"><span class="glyphicon glyphicon-time"></span></p></div>
-                        <span class="hiddenId" hidden="true" id="{{ post.id }}"></span>
-                    </div>
-                {% endfor %}
-            {% endif %}
-
-        </div>
+    <div class="container-fluid" id="contentsbox">
+    {% include "_textBox.html" %}
 
 
-        <div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <!-- Modal Header -->
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                               <span aria-hidden="true">&times;</span>
-                               <span class="sr-only">Close</span>
-                        </button>
-                        <h3 class="modal-title" id="modalHeaderText">{% block modalHeader %}Write_Limited For 100 characters{% endblock %}</h3>
-                    </div>
-
-                    <!-- Modal Body -->
-                    <div class="modal-body">
-
-                        <form role="form" id="modalform">
-                            <div class="form-group">
-                                <textarea class="form-control" id="submitTextarea" form="modalform" cols="34" rows="5" maxlength="{% block postLength %}100{% endblock %}"></textarea>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- Modal Footer -->
-                    <div class="modal-footer">
-
-                        <button type="submit" class="btn btn-default" id="submitBtn">Submit</button>
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-
-                    </div>
+        <div class="row">
+            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-center" style="position: fixed; bottom: 0px; z-index: 1;">
+                <div class="row">
+                    <a href="{% url 'main' %}"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn btn-default text-center radiusZero" style="background-color: #ffffff; height: 45px;"><p class="h4">for1m</p></div></a>
+                    <a id="refreshBtn"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn btn-default text-center radiusZero" style="background-color: #f5dd5d; height: 45px;"><p class="h4">{% block lately %}Lately{% endblock %}</p></div></a>
+                    <a id="moreLoadBtn"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn btn-default text-center radiusZero" style="background-color: #5b80b2; height: 45px;"><p class="h4">{% block moreBtn %}More{% endblock %}</p></div></a>
+                    <a id="writeBtn" data-toggle="modal" data-target="#writeModal"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn btn-default text-center radiusZero" style="background-color: #999999; height: 45px;"><p class="h4">{% block write %}Write{% endblock %}</p></div></a>
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="modal fade" id="writeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content radiusZero">
+    <!-- Modal Header -->
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">
+    <span aria-hidden="true">&times;</span>
+    <span class="sr-only">Close</span>
+    </button>
+    <h3 class="modal-title" id="modalHeaderText">{% block modalHeader %}Write_Limited For 100 characters{% endblock %}</h3>
+    </div>
+
+    <!-- Modal Body -->
+    <div class="modal-body">
+
+    <form role="form" id="modalform">
+    <div class="form-group">
+    <textarea class="form-control radiusZero" id="submitTextarea" form="modalform" cols="34" rows="3" maxlength="{% block postLength %}100{% endblock %}"></textarea>
+    </div>
+    </form>
+    </div>
+
+    <!-- Modal Footer -->
+    <div class="modal-footer">
+
+    <button type="submit" class="btn btn-default radiusZero" id="submitBtn">Submit</button>
+    <button type="button" class="btn btn-default radiusZero" data-dismiss="modal">Close</button>
+
+    </div>
+    </div>
+    </div>
     </div>
 </body>
 <script>

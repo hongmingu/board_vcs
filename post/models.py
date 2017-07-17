@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.utils import timezone
 # Create your models here.
 
 
@@ -14,6 +14,7 @@ class PostAll(models.Model):
 
 class PostForMonth(models.Model):
     text = models.TextField(max_length=2020)
+    title = models.TextField(max_length=30)
 
 
     createdAt = models.DateTimeField(auto_now_add=True)

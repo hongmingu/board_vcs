@@ -1,5 +1,6 @@
 /**
- * Created by Keepair on 2017-06-13.
+ * Created by For1idiot on 2017-07-13.
+
  */
         // using jQuery
 function getCookie(name) {

@@ -106,10 +106,11 @@ def postMonthList(request):
         if request.is_ajax():
             if t == 'submitBtn':
                 c = request.POST.get('c', 'Wrong Sentences or Wrong Process Happend')
-                pts = PostForMonth(text=c)
+                sc = c[:24]
+                pts = PostForMonth(title=sc, text=c)
                 pts.save()
                 ql = PostForMonth.objects.filter(createdAt__gte=ed).filter(id__gt = l).order_by("-createdAt")
-                tgl = list(ql.values('id', 'text', 'createdAt'))
+                tgl = list(ql.values('id', 'title', 'createdAt'))
                 return JsonResponse(tgl, safe=False)
 
             else:
@@ -122,12 +123,12 @@ def postMonthList(request):
             e = request.GET.get('e', 0)
             if t == 'refreshBtn':
                 ql = PostForMonth.objects.filter(createdAt__gte=ed).filter(id__gt=l).order_by("-createdAt")
-                tgl = list(ql.values('id', 'text', 'createdAt'))
+                tgl = list(ql.values('id', 'title', 'createdAt'))
                 return JsonResponse(tgl, safe=False)
             elif t == 'moreLoad':
                 ql = PostForMonth.objects.filter(createdAt__gte=ed).filter(id__lt=e).order_by(
                     "-createdAt")[:5]
-                tgl = list(ql.values('id', 'text', 'createdAt'))
+                tgl = list(ql.values('id', 'title', 'createdAt'))
                 return JsonResponse(tgl, safe=False)
             else:
                 return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
@@ -142,11 +143,20 @@ def postMonthList(request):
     else:
         return JsonResponse({'res': "You've used wrong request"}, safe=False)
 
+
+def postMonthDetail(request, pk):
+    if request.method == 'GET':
+        ql = PostForMonth.objects.get(id=pk)
+        tgl = {
+            'post' : ql
+        }
+        return render(request, 'forMonthDetail.html', tgl)
+
 def mainStatus(request):
     if request.method == 'GET':
         if request.is_ajax():
             b = []
-            elasped_seconds = datetime.now() - timedelta(seconds=60)
+            elasped_seconds = timezone.now() - timedelta(seconds=60)
             ll = ['all', 'ara', 'ben', 'chi', 'eng', 'fre', 'ger', 'hin', 'jap', 'jav', 'kor', 'lah', 'mal', 'por', 'rus', 'spa', 'tel']
             for lan in ll:
                 b.append(switch(lan).objects.filter(createdAt__gte=elasped_seconds).count())

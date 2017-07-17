@@ -21,12 +21,9 @@
           margin-right: -15px !important;
         }
 
-         .wordBreak  {
+         .panel-body  {
                 word-break:break-all
         }
-         .btn {
-                 border-radius: 0px;
-         }
 
         .animaEmerge {
         background-color: transparent;
