@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>For 1 month</title>
+    <title>For 1 hour</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
@@ -11,9 +11,9 @@
     <script src="{% static 'jquery_csrf.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="title" content="For 1 m">
-    <meta name="description" content="Every posts or writings will be alive for '1'month."/>
+    <meta name="description" content="Every posts or writings will be alive for '1'hour."/>
     <meta name="author" content="idiot"/>
-    <meta name="keywords" content="message post minute month writing text"/>
+    <meta name="keywords" content="message post minute month hour writing text"/>
     <link rel="stylesheet" type="text/css" href="{% static "base_three.css" %}">
     <style>
 
@@ -21,10 +21,10 @@
 
 </head>
 <body style="padding-top:10px; padding-bottom: 70px; overflow-y:scroll;">
-<span class="hiddenHOM" hidden="true" id="month">{{ post.id }}</span>
+<span class="hiddenHOM" hidden="true" id="hour"></span>
 
     <div class="container-fluid" id="contentsbox">
-            {% include '_textBoxMonth.html' %}
+            {% include '_textBoxHour.html' %}
 
 
             <div class="row">

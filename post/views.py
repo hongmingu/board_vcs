@@ -52,7 +52,7 @@ def switchTem(x):
 def postLanguageList(request, language):
     pbyl = switch(language)
     tbyl = switchTem(language)
-    es = timezone.now() - timedelta(seconds=60)
+    et = timezone.now() - timedelta(seconds=60)
 
     if request.method == "POST":
         t = request.POST.get('t', 0)
@@ -62,7 +62,7 @@ def postLanguageList(request, language):
                 c = request.POST.get('c', 'Wrong Sentences or Wrong Process Happend')
                 pts = pbyl(text = c)
                 pts.save()
-                ql = pbyl.objects.filter(createdAt__gte=es).filter(id__gt = l).order_by("-createdAt")
+                ql = pbyl.objects.filter(createdAt__gte=et).filter(id__gt = l).order_by("-createdAt")
                 tgl = list(ql.values('id', 'text', 'createdAt'))
                 return JsonResponse(tgl, safe=False)
             else:
@@ -75,18 +75,18 @@ def postLanguageList(request, language):
 
         if request.is_ajax():
             if t =='refreshBtn' :
-                ql = pbyl.objects.filter(createdAt__gte=es).filter(id__gt = l).order_by("-createdAt")
+                ql = pbyl.objects.filter(createdAt__gte=et).filter(id__gt = l).order_by("-createdAt")
                 tgl = list(ql.values('id', 'text', 'createdAt'))
                 return JsonResponse(tgl, safe=False)
             elif t == 'moreLoad':
-                ql = pbyl.objects.filter(createdAt__gte=es).filter(id__lt=e).order_by("-createdAt")[:5]
+                ql = pbyl.objects.filter(createdAt__gte=et).filter(id__lt=e).order_by("-createdAt")[:5]
                 tgl = list(ql.values('id', 'text', 'createdAt'))
                 return JsonResponse(tgl, safe=False)
             else:
                 return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
 
         else:
-            ql = pbyl.objects.filter(createdAt__gte=es).order_by("-createdAt")[:15]
+            ql = pbyl.objects.filter(createdAt__gte=et).order_by("-createdAt")[:15]
         tgl = {
             'posts' : ql,
         }
@@ -97,7 +97,7 @@ def postLanguageList(request, language):
 
 
 def postMonthList(request):
-    ed = timezone.now() - timedelta(days=30)
+    et = timezone.now() - timedelta(days=30)
 
     if request.method == 'POST':
         t =request.POST.get('t',0)
@@ -109,7 +109,7 @@ def postMonthList(request):
                 sc = c[:24]
                 pts = PostForMonth(title=sc, text=c)
                 pts.save()
-                ql = PostForMonth.objects.filter(createdAt__gte=ed).filter(id__gt = l).order_by("-createdAt")
+                ql = PostForMonth.objects.filter(createdAt__gte=et).filter(id__gt = l).order_by("-createdAt")
                 tgl = list(ql.values('id', 'title', 'createdAt'))
                 return JsonResponse(tgl, safe=False)
 
@@ -122,11 +122,11 @@ def postMonthList(request):
             l = request.GET.get('l', 0)
             e = request.GET.get('e', 0)
             if t == 'refreshBtn':
-                ql = PostForMonth.objects.filter(createdAt__gte=ed).filter(id__gt=l).order_by("-createdAt")
+                ql = PostForMonth.objects.filter(createdAt__gte=et).filter(id__gt=l).order_by("-createdAt")
                 tgl = list(ql.values('id', 'title', 'createdAt'))
                 return JsonResponse(tgl, safe=False)
             elif t == 'moreLoad':
-                ql = PostForMonth.objects.filter(createdAt__gte=ed).filter(id__lt=e).order_by(
+                ql = PostForMonth.objects.filter(createdAt__gte=et).filter(id__lt=e).order_by(
                     "-createdAt")[:5]
                 tgl = list(ql.values('id', 'title', 'createdAt'))
                 return JsonResponse(tgl, safe=False)
@@ -134,7 +134,7 @@ def postMonthList(request):
                 return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
 
         else:
-            ql = PostForMonth.objects.filter(createdAt__gte=ed).order_by("-createdAt")[:15]
+            ql = PostForMonth.objects.filter(createdAt__gte=et).order_by("-createdAt")[:15]
             tgl = {
                 'posts': ql,
             }
@@ -146,20 +146,110 @@ def postMonthList(request):
 
 def postMonthDetail(request, pk):
     if request.method == 'GET':
-        ql = PostForMonth.objects.get(id=pk)
+        et = timezone.now() - timedelta(days=30)
+        ql = PostForMonth.objects.filter(createdAt__gte=et).get(id=pk)
+        cql = PostForMonthComment.objects.filter(post_id=pk).all()
         tgl = {
-            'post' : ql
+            'post' : ql,
+            'comments':cql,
         }
         return render(request, 'forMonthDetail.html', tgl)
+
+
+def postHourList(request):
+    et = timezone.now() - timedelta(hours=1)
+
+    if request.method == 'POST':
+        t =request.POST.get('t',0)
+        l = request.POST.get('l',0)
+
+        if request.is_ajax():
+            if t == 'submitBtn':
+                c = request.POST.get('c', 'Wrong Sentences or Wrong Process Happend')
+                sc = c[:24]
+                pts = PostForHour(title=sc, text=c)
+                pts.save()
+                ql = PostForHour.objects.filter(createdAt__gte=et).filter(id__gt = l).order_by("-createdAt")
+                tgl = list(ql.values('id', 'title', 'createdAt'))
+                return JsonResponse(tgl, safe=False)
+
+            else:
+                return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
+    elif request.method=='GET':
+
+        if request.is_ajax():
+            t = request.GET.get('t', 0)
+            l = request.GET.get('l', 0)
+            e = request.GET.get('e', 0)
+            if t == 'refreshBtn':
+                ql = PostForHour.objects.filter(createdAt__gte=et).filter(id__gt=l).order_by("-createdAt")
+                tgl = list(ql.values('id', 'title', 'createdAt'))
+                return JsonResponse(tgl, safe=False)
+            elif t == 'moreLoad':
+                ql = PostForHour.objects.filter(createdAt__gte=et).filter(id__lt=e).order_by(
+                    "-createdAt")[:5]
+                tgl = list(ql.values('id', 'title', 'createdAt'))
+                return JsonResponse(tgl, safe=False)
+            else:
+                return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
+
+        else:
+            ql = PostForHour.objects.filter(createdAt__gte=et).order_by("-createdAt")[:15]
+            tgl = {
+                'posts': ql,
+            }
+            return render(request, 'forHour.html', tgl)
+
+    else:
+        return JsonResponse({'res': "You've used wrong request"}, safe=False)
+
+
+def postHourDetail(request, pk):
+    if request.method == 'GET':
+        et = timezone.now() - timedelta(hours=1)
+        ql = PostForHour.objects.filter(createdAt__gte=et).get(id=pk)
+        cql = PostForHourComment.objects.filter(post_id=pk).all()
+        tgl = {
+            'post': ql,
+            'comments': cql,
+        }
+        return render(request, 'forHourDetail.html', tgl)
+
+
+def commentMonth(request):
+    if request.method == 'POST':
+        if request.is_ajax():
+            pk = request.POST.get('p', 0)
+            c = request.POST.get('c', 0)
+            l = request.POST.get('l',0)
+            cts = PostForMonthComment(post_id=pk, text=c)
+            cts.save()
+            ql = PostForMonthComment.objects.filter(post_id=pk).filter(id__gt=l)
+            tgl = list(ql.values('id', 'text', 'createdAt'))
+
+            return JsonResponse(tgl, safe=False)
+
+def commentHour(request):
+    if request.method == 'POST':
+        if request.is_ajax():
+            pk = request.POST.get('p', 0)
+            c = request.POST.get('c', 0)
+            l = request.POST.get('l',0)
+            cts = PostForHourComment(post_id=pk, text=c)
+            cts.save()
+            ql = PostForHourComment.objects.filter(post_id=pk).filter(id__gt=l)
+            tgl = list(ql.values('id', 'text', 'createdAt'))
+
+            return JsonResponse(tgl, safe=False)
 
 def mainStatus(request):
     if request.method == 'GET':
         if request.is_ajax():
             b = []
-            elasped_seconds = timezone.now() - timedelta(seconds=60)
+            et = timezone.now() - timedelta(seconds=60)
             ll = ['all', 'ara', 'ben', 'chi', 'eng', 'fre', 'ger', 'hin', 'jap', 'jav', 'kor', 'lah', 'mal', 'por', 'rus', 'spa', 'tel']
             for lan in ll:
-                b.append(switch(lan).objects.filter(createdAt__gte=elasped_seconds).count())
+                b.append(switch(lan).objects.filter(createdAt__gte=et).count())
 
             return JsonResponse(b, safe=False)
 

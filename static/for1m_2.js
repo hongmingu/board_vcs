@@ -1,7 +1,12 @@
 $(document).ready(function () {
         var lastId = -1;
         var earlyId = -1;
-        var days = 1000*60*60*24;
+        var timeMath;
+        var timeUnit;
+        var stampLine;
+        var usingUrl = $(".hiddenHOM").val();
+
+
         if ($(".hiddenId").length) {
                 $(".hiddenId").each(function(index) {
                     if (earlyId == -1|| earlyId>$(this).attr("id")){
@@ -15,6 +20,16 @@ $(document).ready(function () {
         else {
         }
 
+        if($(".hiddenHOM").attr("id")=='month'){
+            timeUnit = 'days ago';
+            timeMath = 1000*60*60*24;
+            stampLine = 30;
+        }
+        else {
+            timeUnit = 'min ago';
+            timeMath = 1000*60;
+            stampLine = 60;
+        }
         //###########################################################
         if ($(".timePTag").length) {
             $(".timePTag").each(function(index) {
@@ -22,13 +37,13 @@ $(document).ready(function () {
                 var id = $(this).attr("id");
 
                 var sourcedate = new Date(id);
-                var timestamp = Math.floor((now - sourcedate) /days);
-                if (timestamp>=30){
+                var timestamp = Math.floor((now - sourcedate) /timeMath);
+                if (timestamp>=stampLine){
                     $(this).text('Expired');
                     $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
                 }
                 else {
-                    $(this).text((timestamp)+'days ago');
+                    $(this).text((timestamp)+timeUnit);
                 }
              });
         }
@@ -39,10 +54,9 @@ $(document).ready(function () {
         $("#submitBtn").click(function () {
             var getText = $("#submitTextarea").val();
             getText.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-            console.log(getText);
             if (getText.length >= 50){
                 $.ajax({
-                url:"/month/list/",
+                url:usingUrl,
                 type:"post",
                 data:{
                     l : lastId,
@@ -72,13 +86,13 @@ $(document).ready(function () {
                             var id = $(this).attr("id");
 
                             var sourcedate = new Date(id);
-                            var timestamp = Math.floor((now - sourcedate) /days);
-                            if (timestamp>=30){
+                            var timestamp = Math.floor((now - sourcedate) /timeMath);
+                            if (timestamp>=stampLine){
                             $(this).text('Expired');
                             $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
                             }
                             else {
-                            $(this).text((timestamp)+'days ago');
+                            $(this).text((timestamp)+timeUnit);
                             }
                             });
                             }
@@ -97,7 +111,7 @@ $(document).ready(function () {
 
         $("#refreshBtn").click(function (e) {
                     $.ajax({
-                    url:"/month/list/",
+                    url:usingUrl,
                     type:"get",
                     data:{
                     e : earlyId,
@@ -125,13 +139,13 @@ $(document).ready(function () {
                         var id = $(this).attr("id");
 
                         var sourcedate = new Date(id);
-                        var timestamp = Math.floor((now - sourcedate) /days);
-                        if (timestamp>=30){
+                        var timestamp = Math.floor((now - sourcedate) /timeMath);
+                        if (timestamp>=stampLine){
                         $(this).text('Expired');
                         $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
                         }
                         else {
-                        $(this).text((timestamp)+'days ago');
+                        $(this).text((timestamp)+timeUnit);
                         }
                         });
                         }
@@ -146,7 +160,7 @@ $(document).ready(function () {
 
        $("#moreLoadBtn").click(function (e) {
                 $.ajax({
-                url:'/month/list/',
+                url:usingUrl,
                 type:"get",
                 data:{
                 e : earlyId,
@@ -170,13 +184,13 @@ $(document).ready(function () {
                     var id = $(this).attr("id");
 
                     var sourcedate = new Date(id);
-                    var timestamp = Math.floor((now - sourcedate) /days);
-                    if (timestamp>=30){
+                    var timestamp = Math.floor((now - sourcedate) /timeMath);
+                    if (timestamp>=stampLine){
                     $(this).text('Expired');
                     $(this).parent().parent().removeClass("animaEmerge").addClass("Expired");
                     }
                     else {
-                    $(this).text((timestamp)+'days ago');
+                    $(this).text((timestamp)+timeUnit);
                     }
                     });
                     }

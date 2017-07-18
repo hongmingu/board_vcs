@@ -20,7 +20,37 @@ class PostForMonth(models.Model):
     createdAt = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return "For month// PK : %s// created : %s // %s // " % (self.pk, self.createdAt,  self.text)
+        return "For month// PK : %s// created : %s // %s // " % (self.pk, self.createdAt,  self.title)
+
+class PostForMonthComment(models.Model):
+    text = models.TextField(max_length=2020)
+    post = models.ForeignKey(PostForMonth)
+
+
+    createdAt = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "ForMonthComment// PK : %s// created : %s // %s // " % (self.pk, self.createdAt,  self.post.title)
+
+
+class PostForHour(models.Model):
+    text = models.TextField(max_length=2020)
+    title = models.TextField(max_length=30)
+
+
+    createdAt = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "For hour// PK : %s// created : %s // %s // " % (self.pk, self.createdAt,  self.title)
+
+class PostForHourComment(models.Model):
+    text = models.TextField(max_length=2020)
+    post = models.ForeignKey(PostForHour)
+
+    createdAt = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "ForHourComment// PK : %s// created : %s // %s // " % (self.pk, self.createdAt, self.post.title)
 
 
 class PostArabic(models.Model):

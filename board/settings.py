@@ -25,7 +25,7 @@ SECRET_KEY = '37e(e$6g538)dmb@w@&g*lc7gsv^80^o8p32*fginzj6(5!a_#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 ALLOWED_HOSTS = []
-#when debut = true -> allowedHost = [] other case, use '*'
+#when debug = true -> allowedHost = [] other case, use '*'
 # ALLOWED_HOSTS = '*'
 #for git
 
