@@ -96,64 +96,7 @@ def postLanguageList(request, language):
         return JsonResponse({'res': "You've used wrong request"}, safe=False)
 
 
-def postMonthList(request):
-    et = timezone.now() - timedelta(days=30)
 
-    if request.method == 'POST':
-        t =request.POST.get('t',0)
-        l = request.POST.get('l',0)
-
-        if request.is_ajax():
-            if t == 'submitBtn':
-                c = request.POST.get('c', 'Wrong Sentences or Wrong Process Happend')
-                sc = c[:24]
-                pts = PostForMonth(title=sc, text=c)
-                pts.save()
-                ql = PostForMonth.objects.filter(createdAt__gte=et).filter(id__gt = l).order_by("-createdAt")
-                tgl = list(ql.values('id', 'title', 'createdAt'))
-                return JsonResponse(tgl, safe=False)
-
-            else:
-                return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
-    elif request.method=='GET':
-
-        if request.is_ajax():
-            t = request.GET.get('t', 0)
-            l = request.GET.get('l', 0)
-            e = request.GET.get('e', 0)
-            if t == 'refreshBtn':
-                ql = PostForMonth.objects.filter(createdAt__gte=et).filter(id__gt=l).order_by("-createdAt")
-                tgl = list(ql.values('id', 'title', 'createdAt'))
-                return JsonResponse(tgl, safe=False)
-            elif t == 'moreLoad':
-                ql = PostForMonth.objects.filter(createdAt__gte=et).filter(id__lt=e).order_by(
-                    "-createdAt")[:5]
-                tgl = list(ql.values('id', 'title', 'createdAt'))
-                return JsonResponse(tgl, safe=False)
-            else:
-                return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
-
-        else:
-            ql = PostForMonth.objects.filter(createdAt__gte=et).order_by("-createdAt")[:15]
-            tgl = {
-                'posts': ql,
-            }
-            return render(request, 'forMonth.html', tgl)
-
-    else:
-        return JsonResponse({'res': "You've used wrong request"}, safe=False)
-
-
-def postMonthDetail(request, pk):
-    if request.method == 'GET':
-        et = timezone.now() - timedelta(days=30)
-        ql = PostForMonth.objects.filter(createdAt__gte=et).get(id=pk)
-        cql = PostForMonthComment.objects.filter(post_id=pk).all()
-        tgl = {
-            'post' : ql,
-            'comments':cql,
-        }
-        return render(request, 'forMonthDetail.html', tgl)
 
 
 def postHourList(request):
@@ -216,19 +159,6 @@ def postHourDetail(request, pk):
         return render(request, 'forHourDetail.html', tgl)
 
 
-def commentMonth(request):
-    if request.method == 'POST':
-        if request.is_ajax():
-            pk = request.POST.get('p', 0)
-            c = request.POST.get('c', 0)
-            l = request.POST.get('l',0)
-            cts = PostForMonthComment(post_id=pk, text=c)
-            cts.save()
-            ql = PostForMonthComment.objects.filter(post_id=pk).filter(id__gt=l)
-            tgl = list(ql.values('id', 'text', 'createdAt'))
-
-            return JsonResponse(tgl, safe=False)
-
 def commentHour(request):
     if request.method == 'POST':
         if request.is_ajax():
@@ -265,3 +195,80 @@ def handler500(request):
                                   context_instance=RequestContext(request))
     response.status_code = 500
     return response
+
+
+
+'''
+
+
+def postMonthList(request):
+    et = timezone.now() - timedelta(days=30)
+
+    if request.method == 'POST':
+        t =request.POST.get('t',0)
+        l = request.POST.get('l',0)
+
+        if request.is_ajax():
+            if t == 'submitBtn':
+                c = request.POST.get('c', 'Wrong Sentences or Wrong Process Happend')
+                sc = c[:24]
+                pts = PostForMonth(title=sc, text=c)
+                pts.save()
+                ql = PostForMonth.objects.filter(createdAt__gte=et).filter(id__gt = l).order_by("-createdAt")
+                tgl = list(ql.values('id', 'title', 'createdAt'))
+                return JsonResponse(tgl, safe=False)
+
+            else:
+                return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
+    elif request.method=='GET':
+
+        if request.is_ajax():
+            t = request.GET.get('t', 0)
+            l = request.GET.get('l', 0)
+            e = request.GET.get('e', 0)
+            if t == 'refreshBtn':
+                ql = PostForMonth.objects.filter(createdAt__gte=et).filter(id__gt=l).order_by("-createdAt")
+                tgl = list(ql.values('id', 'title', 'createdAt'))
+                return JsonResponse(tgl, safe=False)
+            elif t == 'moreLoad':
+                ql = PostForMonth.objects.filter(createdAt__gte=et).filter(id__lt=e).order_by(
+                    "-createdAt")[:5]
+                tgl = list(ql.values('id', 'title', 'createdAt'))
+                return JsonResponse(tgl, safe=False)
+            else:
+                return JsonResponse({'res': "You've got wrong response or no AjaxResponse"}, safe=False)
+
+        else:
+            ql = PostForMonth.objects.filter(createdAt__gte=et).order_by("-createdAt")[:15]
+            tgl = {
+                'posts': ql,
+            }
+            return render(request, 'forMonth.html', tgl)
+
+    else:
+        return JsonResponse({'res': "You've used wrong request"}, safe=False)
+def postMonthDetail(request, pk):
+    if request.method == 'GET':
+        et = timezone.now() - timedelta(days=30)
+        ql = PostForMonth.objects.filter(createdAt__gte=et).get(id=pk)
+        cql = PostForMonthComment.objects.filter(post_id=pk).all()
+        tgl = {
+            'post' : ql,
+            'comments':cql,
+        }
+        return render(request, 'forMonthDetail.html', tgl)
+
+def commentMonth(request):
+    if request.method == 'POST':
+        if request.is_ajax():
+            pk = request.POST.get('p', 0)
+            c = request.POST.get('c', 0)
+            l = request.POST.get('l',0)
+            cts = PostForMonthComment(post_id=pk, text=c)
+            cts.save()
+            ql = PostForMonthComment.objects.filter(post_id=pk).filter(id__gt=l)
+            tgl = list(ql.values('id', 'text', 'createdAt'))
+
+            return JsonResponse(tgl, safe=False)
+
+'''

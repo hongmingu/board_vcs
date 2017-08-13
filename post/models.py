@@ -11,7 +11,7 @@ class PostAll(models.Model):
 
     def __str__(self):
         return "All// PK : %s// created : %s // %s // " % (self.pk, self.createdAt,  self.text)
-
+'''
 class PostForMonth(models.Model):
     text = models.TextField(max_length=2020)
     title = models.TextField(max_length=30)
@@ -31,6 +31,8 @@ class PostForMonthComment(models.Model):
 
     def __str__(self):
         return "ForMonthComment// PK : %s// created : %s // %s // " % (self.pk, self.createdAt,  self.post.title)
+
+'''
 
 
 class PostForHour(models.Model):

@@ -22,11 +22,15 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', TemplateView.as_view(template_name='main.html'), name='main'),
     url(r'^(?P<language>[a-z]+)/$', views.postLanguageList, name='language'),
-    url(r'^month/list/$', views.postMonthList, name='month'),
-    url(r'^month/list/(?P<pk>[0-9]+)/$', views.postMonthDetail, name='monthDetail'),
     url(r'^hour/list/$', views.postHourList, name='hour'),
     url(r'^hour/list/(?P<pk>[0-9]+)/$', views.postHourDetail, name='hourDetail'),
-    url(r'^comment/month/$', views.commentMonth, name='commentMonth'),
     url(r'^comment/hour/$', views.commentHour, name='commentHour'),
     url(r'^mainStatus/$', views.mainStatus, name='mainStatus'),
+
 ]
+
+'''
+    url(r'^comment/month/$', views.commentMonth, name='commentMonth'),
+    url(r'^month/list/$', views.postMonthList, name='month'),
+    url(r'^month/list/(?P<pk>[0-9]+)/$', views.postMonthDetail, name='monthDetail'),
+'''
