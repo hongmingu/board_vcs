@@ -26,6 +26,12 @@ urlpatterns = [
     url(r'^hour/list/(?P<pk>[0-9]+)/$', views.postHourDetail, name='hourDetail'),
     url(r'^comment/hour/$', views.commentHour, name='commentHour'),
     url(r'^mainStatus/$', views.mainStatus, name='mainStatus'),
+    url(r'^about/1$', TemplateView.as_view(template_name='workingProcess1.html'), name='working1'),
+    url(r'^about/2$', TemplateView.as_view(template_name='workingProcess2.html'), name='working2'),
+    url(r'^about/3$', TemplateView.as_view(template_name='workingProcess3.html'), name='working3'),
+    url(r'^about/4$', TemplateView.as_view(template_name='workingProcess4.html'), name='working4'),
+    url(r'^about/5$', TemplateView.as_view(template_name='workingProcess5.html'), name='working5'),
+    url(r'^about/6$', TemplateView.as_view(template_name='workingProcess6.html'), name='working6'),
 
 ]
 

@@ -1,0 +1,86 @@
+#box{border:4px dotted green; border-bottom:5px solid blue }
+        .navbar .navbar-nav{
+            text-align: center;
+        }
+        .navbar .navbar-collapse {
+            text-align: center;
+        }
+
+        .panelheightauto{
+                height: auto;
+        }
+
+        .navbar .navbar-nav {
+            display: inline-block;
+            float: none;
+        }
+        .navbar-nav>li, .navbar-nav {
+          float: left !important;
+        }
+        .navbar-nav .navbar-right:last-child {
+          margin-right: -15px !important;
+        }
+
+         .wordBreak  {
+                word-break:break-all
+        }
+         .btn {
+                 border-radius: 0px;
+         }
+
+        .animaEmerge {
+        background-color: transparent;
+        -webkit-animation-name: emerge; /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
+        animation-name: emerge;
+        animation-duration: 4s;
+        }
+        .Expired {
+            background-color: lightpink;
+        }
+        .statusDiv{
+        display: inline-block; padding: 6px 12px; margin-bottom: 0;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 1.42857143;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: middle;
+        border: 1px solid transparent;
+        border-radius: 4px;
+        }
+        .dropdownItem {
+            padding: 1px;
+        }
+        .radiusZero{
+        border-radius: 0;
+        }
+
+        .textBoxBody{
+                background-color: transparent;
+                font-size:22px;
+                border-width : 1px;
+                border-color:#c4dce8;
+                border-style: solid;
+                height: auto;
+        }
+
+
+
+        .textBoxFooter{
+                background-color: #c4dce8; font-size:14px; color: #999999; height: auto;
+        }
+
+
+
+        /* Safari 4.0 - 8.0 */
+        @-webkit-keyframes emerge {
+        from {background-color: lightskyblue;}
+        to {background-color: transparent;}
+        }
+
+        /* Standard syntax */
+        @keyframes emerge {
+        from {background-color: lightskyblue;}
+        to {background-color: transparent;}
+        }
