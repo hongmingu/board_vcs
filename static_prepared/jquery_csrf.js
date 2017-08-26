@@ -3,7 +3,9 @@
 
  */
         // using jQuery
-function getCookie(name) {
+
+$(document).ready(function () {
+    function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie !== '') {
         var cookies = document.cookie.split(';');
@@ -31,4 +33,5 @@ $.ajaxSetup({
             xhr.setRequestHeader("X-CSRFToken", csrftoken);
          }
     }
+});
 });

@@ -164,7 +164,10 @@
             padding-top:10px;
             padding-bottom: 70px;
             overflow-y:scroll;
-            background-color: black;
+        }
+        .bodyTwo{
+            padding-top:10px;
+            padding-bottom: 90px;
         }
 
         /* Safari 4.0 - 8.0 */

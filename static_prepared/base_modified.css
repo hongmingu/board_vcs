@@ -107,16 +107,19 @@
         .bgcGrey{
             background-color: #999999;
         }
-        .bgcBlack{
-            background-color: #000000;
+        .bgcPink{
+            background-color: #ff9ca3;
+        }
+
+        .bgcMainPinkTwo{
+            background-color: #eac2cd;
+        }
+        .bgcMainPink{
+            background-color: lightpink;
         }
 
         .colorBlack{
             color: black;
-        }
-
-        .colorWhite{
-            color: white;
         }
 
         .wordBreakAll{
@@ -131,7 +134,7 @@
         }
 
         .bgcSkyTwo{
-            background-color: #609ab6;
+            background-color: #c4dce8;
         }
 
         .bgcLightYellow{
