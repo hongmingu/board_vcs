@@ -15,14 +15,14 @@
     <meta name="author" content="idiot"/>
     <meta name="keywords" content="message post minute month writing text"/>
 
-    <link rel="stylesheet" type="text/css" href="{% static "base_three.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "base_modified.css" %}">
     <style>
         
     </style>
 
 </head>
 
-<body style="padding-top:10px; padding-bottom: 70px; overflow-y: scroll;">
+<body class="bodyOne">
     <div class="container-fluid">
 
     </div>
@@ -36,12 +36,12 @@
 
 
         <div class="row">
-            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-center" style="position: fixed; bottom: 0px; z-index: 1;">
+            <div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 text-center fixedBottom0">
                 <div class="row">
-                    <a href="{% url 'main' %}"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn btn-default text-center radiusZero" style="background-color: #ffffff; height: 45px;"><p class="h5">60noname</p></div></a>
-                    <a id="refreshBtn"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn btn-default text-center radiusZero" style="background-color: #f5dd5d; height: 45px;"><p class="h5">{% block lately %}Lately{% endblock %}</p></div></a>
-                    <a id="moreLoadBtn"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn btn-default text-center radiusZero" style="background-color: #5b80b2; height: 45px;"><p class="h5">{% block moreBtn %}More{% endblock %}</p></div></a>
-                    <a id="writeBtn" data-toggle="modal" data-target="#writeModal"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn btn-default text-center radiusZero" style="background-color: #999999; height: 45px;"><p class="h5">{% block write %}Write{% endblock %}</p></div></a>
+                    <a href="{% url 'main' %}"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn btn-default text-center radiusZero bgcWhite height45"><p class="h5">60noname</p></div></a>
+                    <a id="refreshBtn"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn btn-default text-center radiusZero bgcYellow height45"><p class="h5">{% block lately %}Lately{% endblock %}</p></div></a>
+                    <a id="moreLoadBtn"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn btn-default text-center radiusZero bgcBlue height45"><p class="h5">{% block moreBtn %}More{% endblock %}</p></div></a>
+                    <a id="writeBtn" data-toggle="modal" data-target="#writeModal"><div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 btn btn-default text-center radiusZero bgcGrey height45"><p class="h5">{% block write %}Write{% endblock %}</p></div></a>
                 </div>
             </div>
         </div>

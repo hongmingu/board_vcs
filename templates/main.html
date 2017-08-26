@@ -8,8 +8,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
     {% load staticfiles %}
     <script src="{% static 'for1m_3.js' %}"></script>
+    <script src="{% static 'snsBtn.js' %}"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{% static "base.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "base_modified.css" %}">
     <meta name="title" content="60noname">
     <meta name="description" content="Every posts or writings will be alive for 60seconds."/>
     <meta name="author" content="60yesname"/>
@@ -24,43 +25,43 @@
     </style>
 
 </head>
-<body style="padding-top:10px; padding-bottom: 70px; overflow-y:scroll;">
+<body class="bodyOne">
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: #79aec8; height: auto;">
-            <p style="word-break: break-all"><h1>60noname</h1></p>
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center bgcSky heightAuto">
+            <p class="wordBreakAll"><h1>60noname</h1></p>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: #f5dd5d; height: auto;">
-            <p style="word-break: break-all"><h4>{% block mainSentence %}With noname,<br> Every posts will be alive for 60 seconds. <br>Except 'For 60 minutes' category's things. <br>'For 60 minutes' things lives for 60 minutes. {% endblock %}</h4></p>
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center heightAuto bgcLightYellow">
+            <p class="wordBreakAll"><h4>{% block mainSentence %}With noname,<br> Every posts will be alive for 60 seconds. <br>Except 'For 60 minutes' category's things. <br>'For 60 minutes' things lives for 60 minutes. {% endblock %}</h4></p>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: darkgray; height: auto;">
-            <p style="word-break: break-all"><h6>If you have anything to say or to help, letter to my Email : 60yesname@gmail.com</h6></p>
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center heightAuto bgcDarkGrey">
+            <p class="wordBreakAll"><h6>If you have anything to say or to help, letter to my Email : 60yesname@gmail.com</h6></p>
         </div>
     </div>
 
 
 
-    <div class="row" style="margin-top: 10px">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: transparent; height: auto;">
+    <div class="row marginTop10">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center bgcTransparent heightAuto">
             <div class="row">
-                <div class="col-lg-4 col-md-4" style="background-color: #609ab6; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcSkyTwo heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'ara' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Arabic</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="araStatus"></p></div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4" style="background-color: #ffffcc; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcLightYellowTwo heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'ben' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Bengali</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="benStatus"></p></div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4" style="background-color: #cccccc; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcLightGrey heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'chi' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Chinese</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="chiStatus"></p></div>
@@ -70,22 +71,22 @@
         </div>
     </div>
 
-    <div class="row" style="margin-top: 10px">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: transparent; height: auto;">
+    <div class="row marginTop10">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center bgcTransparent heightAuto">
             <div class="row">
-                <div class="col-lg-4 col-md-4" style="background-color: #609ab6; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcSkyTwo heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'eng' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">English</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="engStatus"></p></div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4" style="background-color: #ffffcc; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcLightYellowTwo heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'fre' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">French</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="freStatus"></p></div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4" style="background-color: #cccccc; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcLightGrey heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'ger' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">German</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="gerStatus"></p></div>
@@ -95,22 +96,22 @@
         </div>
     </div>
 
-    <div class="row" style="margin-top: 10px">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: transparent; height: auto;">
+    <div class="row marginTop10">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center bgcTransparent heightAuto">
             <div class="row">
-                <div class="col-lg-4 col-md-4" style="background-color: #609ab6; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcSkyTwo heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'hin' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Hindi</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="hinStatus"></p></div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4" style="background-color: #ffffcc; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcLightYellowTwo heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'jap' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Japanese</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="japStatus"></p></div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4" style="background-color: #cccccc; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcLightGrey heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'jav' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Javanese</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="javStatus"></p></div>
@@ -120,22 +121,22 @@
         </div>
     </div>
 
-    <div class="row" style="margin-top: 10px">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: transparent; height: auto;">
+    <div class="row marginTop10">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center bgcTransparent heightAuto">
             <div class="row">
-                <div class="col-lg-4 col-md-4" style="background-color: #609ab6; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcSkyTwo heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'kor' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Korean</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="korStatus"></p></div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4" style="background-color: #ffffcc; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcLightYellowTwo heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'lah' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Lahnda</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="lahStatus"></p></div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4" style="background-color: #cccccc; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcLightGrey heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'mal' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Malay</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="malStatus"></p></div>
@@ -145,22 +146,22 @@
         </div>
     </div>
 
-    <div class="row" style="margin-top: 10px">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: transparent; height: auto;">
+    <div class="row marginTop10">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center bgcTransparent heightAuto">
             <div class="row">
-                <div class="col-lg-4 col-md-4" style="background-color: #609ab6; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcSkyTwo heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'por' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Portuguese</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="porStatus"></p></div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4" style="background-color: #ffffcc; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcLightYellowTwo heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'rus' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Russian</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="rusStatus"></p></div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-4" style="background-color: #cccccc; height: auto;">
+                <div class="col-lg-4 col-md-4 bgcLightGrey heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'spa' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Spanish</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="spaStatus"></p></div>
@@ -171,11 +172,11 @@
     </div>
 
 
-    <div class="row" style="margin-top: 10px">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: transparent; height: auto;">
+    <div class="row marginTop10">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-centerbgc Transparent heightAuto">
             <div class="row">
 
-                <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4" style="background-color: #cccccc; height: auto;">
+                <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 bgcLightGrey heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'tel' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">Telugu</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="telStatus"></p></div>
@@ -187,11 +188,11 @@
     </div>
 
 
-    <div class="row" style="margin-top: 10px">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: transparent; height: auto;">
+    <div class="row marginTop10">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center bgcTransparent heightAuto">
             <div class="row">
 
-                <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4" style="background-color: #cccccc; height: auto;">
+                <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-4 col-sm-offset-4 bgcLightGrey heightAuto">
                     <div class="row">
                         <a href="{% url 'language' 'all' %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default">All language</div></a>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 statusDiv"><p id="allStatus"></p></div>
@@ -202,30 +203,30 @@
         </div>
     </div>
 
-    <div class="row" style="margin-top: 10px">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: transparent; height: auto;">
+    <div class="row marginTop10">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center bgcTransparent heightAuto">
             <div class="row">
-{#                <a href="{% url 'month'  %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default text-center" style="background-color: transparent; height: auto;">#}
+{#                <a href="{% url 'month'  %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default text-center bgcTransparent heightAuto">#}
 {#                    <p>For 1 month</p>#}
 {#                </div></a>#}
-                <a href="{% url 'hour'  %}"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-default text-center" style="background-color: transparent; height: auto;"><p>For 60 minutes</p></div></a>
+                <a href="{% url 'hour'  %}"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-default text-center bgcTransparent heightAuto"><p>For 60 minutes</p></div></a>
             </div>
         </div>
     </div>
 
-    <div class="row" style="margin-top: 10px">
-        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: transparent; height: auto;">
+    <div class="row marginTop10">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center bgcTransparent heightAuto">
             <div class="row">
-{#                <a href="{% url 'month'  %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default text-center" style="background-color: transparent; height: auto;">#}
+{#                <a href="{% url 'month'  %}"><div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 btn btn-default text-center bgcTransparent heightAuto">#}
 {#                    <p>For 1 month</p>#}
 {#                </div></a>#}
-                <a href="{% url 'working1'  %}"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-default text-center" style="background-color: transparent; height: auto;"><p>About</p></div></a>
+                <a href="{% url 'working1'  %}"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 btn btn-default text-center bgcTransparent heightAuto"><p>About</p></div></a>
             </div>
         </div>
     </div>
 
-<div class="row" style="margin-top: 20px;">
-    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center" style="background-color: transparent; height: auto;">
+<div class="row marginTop20">
+    <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 text-center bgcTransparent heightAuto">
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                 <div id="fb-root"></div>
@@ -235,7 +236,7 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                <div style="margin-top: 10px;"><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a></div>
+                <div class="marginTop10"><a href="https://twitter.com/share" class="twitter-share-button">Tweet</a></div>
             </div>
         </div>
     </div>
@@ -246,19 +247,4 @@
 
 
 </body>
-<script>
-$(document).ready(function () {
-     !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');
-
-
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-});
-</script>
 </html>

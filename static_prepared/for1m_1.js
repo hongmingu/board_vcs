@@ -57,7 +57,7 @@
                         $.each(data, function (index, value) {
                             $("#contentsbox")
                                 .prepend(
-                                    '<div class="row" style="padding-top:10px;"><div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 animaEmerge"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left textBoxBody wordBreak"><p><h5>'+value.text+'</h5></p></div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right textBoxFooter"><p class="timePTag" id="'+value.createdAt+'"><span class="glyphicon glyphicon-time"></span></p></div></div></div></a></div>'
+                                    '<div class="row paddingTop10"><div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 animaEmerge"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left textBoxBody wordBreak"><p><h5>'+value.text+'</h5></p></div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right textBoxFooter"><p class="timePTag" id="'+value.createdAt+'"><span class="glyphicon glyphicon-time"></span></p></div></div></div></a></div>'
                                 );
                             lastId = value.id;
                         });
@@ -88,7 +88,7 @@
                         $.each(data, function (index, value) {
                             $("#contentsbox")
                                 .prepend(
-                                    '<div class="row" style="padding-top:10px;"><div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 animaEmerge"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left textBoxBody wordBreak"><p><h5>'+value.text+'</h5></p></div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right textBoxFooter"><p class="timePTag" id="'+value.createdAt+'"><span class="glyphicon glyphicon-time"></span></p></div></div></div></a></div>'
+                                    '<div class="row paddingTop10"><div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 animaEmerge"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left textBoxBody wordBreak"><p><h5>'+value.text+'</h5></p></div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right textBoxFooter"><p class="timePTag" id="'+value.createdAt+'"><span class="glyphicon glyphicon-time"></span></p></div></div></div></a></div>'
                                 );
                             lastId = value.id;
                         });
@@ -113,7 +113,7 @@
                         $.each(data, function (index, value) {
                             $("#contentsbox")
                             .append(
-                                '<div class="row" style="padding-top:10px;"><div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 animaEmerge"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left textBoxBody wordBreak"><p><h5>'+value.text+'</h5></p></div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right textBoxFooter"><p class="timePTag" id="'+value.createdAt+'"><span class="glyphicon glyphicon-time"></span></p></div></div></div></a></div>'
+                                '<div class="row paddingTop10"><div class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 col-xs-12 animaEmerge"><div class="row"><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left textBoxBody wordBreak"><p><h5>'+value.text+'</h5></p></div><div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-right textBoxFooter"><p class="timePTag" id="'+value.createdAt+'"><span class="glyphicon glyphicon-time"></span></p></div></div></div></a></div>'
                             );
                             if (earlyId > value.id){
                             earlyId = value.id;

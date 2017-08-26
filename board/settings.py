@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'post',
+    'storages',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +122,19 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# STATIC_URL = ""
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static_prepared'),
 )
+
+# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+#
+# AWS_ACCESS_KEY_ID =""
+# AWS_SECRET_ACCESS_KEY =""
+#
+# AWS_STORAGE_BUCKET_NAME =""
+#
+# AWS_S3_CUSTOM_DOMAIN =""

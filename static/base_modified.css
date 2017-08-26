@@ -63,6 +63,109 @@
                 font-size: 10px;
         }
 
+        .transparentAuto{
+            background-color: transparent;
+            height: auto;
+        }
+
+        .marginTop10{
+            margin-top: 10px;
+        }
+
+        .paddingTop10{
+            padding-top: 10px;
+        }
+
+        .paddingTopBottomOverflowY{
+            padding-top:10px;
+            padding-bottom: 70px;
+            overflow-y: scroll;
+        }
+
+        .fixedBottom0{
+            position: fixed;
+            bottom: 0px;
+            z-index: 1;
+        }
+
+        .height45{
+            height: 45px;
+        }
+
+        .bgcWhite{
+            background-color: #ffffff;
+        }
+
+        .bgcYellow{
+            background-color: #f5dd5d;
+        }
+
+        .bgcBlue{
+            background-color: #5b80b2;
+        }
+
+        .bgcGrey{
+            background-color: #999999;
+        }
+        .bgcBlack{
+            background-color: #000000;
+        }
+
+        .colorBlack{
+            color: black;
+        }
+
+        .colorWhite{
+            color: white;
+        }
+
+        .wordBreakAll{
+            word-break: break-all;
+        }
+
+        .heightAuto{
+            height: auto;
+        }
+        .bgcSky{
+            background-color: #79aec8;
+        }
+
+        .bgcSkyTwo{
+            background-color: #609ab6;
+        }
+
+        .bgcLightYellow{
+            background-color: #f5dd5d;
+        }
+
+        .bgcLightYellowTwo{
+            background-color: #ffffcc;
+        }
+
+        .bgcLightGrey{
+            background-color: #cccccc;
+        }
+
+
+
+        .bgcDarkGrey{
+            background-color: darkgrey;
+        }
+
+        .bgcTransparent{
+            background-color: transparent;
+        }
+
+        .marginTop20{
+            margin-top: 20px;
+        }
+
+        .bodyOne{
+            padding-top:10px;
+            padding-bottom: 70px;
+            overflow-y:scroll;
+            background-color: black;
+        }
 
         /* Safari 4.0 - 8.0 */
         @-webkit-keyframes emerge {
