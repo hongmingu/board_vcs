@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+#import pymysql
+#pymysql.install_as_MySQLdb()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,11 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '37e(e$6g538)dmb@w@&g*lc7gsv^80^o8p32*fginzj6(5!a_#'
-
+SECRET_KEY = os.environ['SECRET_KEY'] 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = '*'
 #when debug = true -> allowedHost = [] other case, use '*'
 # ALLOWED_HOSTS = '*'
 #for git
@@ -77,11 +78,22 @@ WSGI_APPLICATION = 'board.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+#    }
+#}
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+	'default':{
+		'ENGINE':'django.db.backends.postgresql_psycopg2',
+		'NAME':os.environ['DBNAME'],
+		'USER':os.environ['DBUSER'],
+		'PASSWORD':os.environ['DBPASSWORD'],
+		'HOST':os.environ['DBHOST'],
+		'PORT':os.environ['DBPORT'],
+	}
 }
 
 
@@ -121,20 +133,20 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
-STATIC_URL = '/static/'
+# STATIC_URL = '/static/'
 
-# STATIC_URL = ""
+STATIC_URL =os.environ['AWS_S3_CUSTOM_DOMAIN']+'/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static_prepared'),
 )
 
-# DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-# STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-#
-# AWS_ACCESS_KEY_ID =""
-# AWS_SECRET_ACCESS_KEY =""
-#
-# AWS_STORAGE_BUCKET_NAME =""
-#
-# AWS_S3_CUSTOM_DOMAIN =""
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+AWS_ACCESS_KEY_ID =os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY =os.environ['AWS_SECRET_ACCESS_KEY']
+
+AWS_STORAGE_BUCKET_NAME =os.environ['AWS_STORAGE_BUCKET_NAME']
+
+AWS_S3_CUSTOM_DOMAIN =os.environ['AWS_S3_CUSTOM_DOMAIN']

@@ -4,6 +4,7 @@ from post.models import *
 from datetime import datetime, timedelta
 from django.utils import timezone
 from django.http import JsonResponse
+from django.views.decorators.csrf import ensure_csrf_cookie
 import urllib
 
 # Create your views here.
@@ -50,6 +51,7 @@ def switchTem(x):
         'tel': 'tel.html',
     }.get(x, 'all.html')
 
+@ensure_csrf_cookie
 def postLanguageList(request, language):
     pbyl = switch(language)
     tbyl = switchTem(language)
@@ -99,7 +101,7 @@ def postLanguageList(request, language):
 
 
 
-
+@ensure_csrf_cookie
 def postHourList(request):
     et = timezone.now() - timedelta(hours=1)
 
@@ -159,7 +161,7 @@ def postHourDetail(request, pk):
         }
         return render(request, 'forHourDetail.html', tgl)
 
-
+@ensure_csrf_cookie
 def commentHour(request):
     if request.method == 'POST':
         if request.is_ajax():
